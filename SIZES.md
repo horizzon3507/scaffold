@@ -12,3 +12,4 @@
 | Hand-rolled parser, clap removed | 421312 |
 | anyhow removed: zero dependencies | 401328 |
 | Shell completions added | 403896 |
+| Colors and --no-color added | 407032 |
