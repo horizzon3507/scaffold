@@ -36,3 +36,27 @@ pub fn title_case(name: &str) -> String {
         .collect::<Vec<_>>()
         .join(" ")
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn accepts_kebab_and_snake_names() {
+        assert!(validate("my-app").is_ok());
+        assert!(validate("my_app2").is_ok());
+    }
+
+    #[test]
+    fn rejects_empty_leading_digit_and_spaces() {
+        assert!(validate("").is_err());
+        assert!(validate("2cool").is_err());
+        assert!(validate("no spaces").is_err());
+    }
+
+    #[test]
+    fn title_cases_for_readme() {
+        assert_eq!(title_case("my-app"), "My App");
+        assert_eq!(title_case("scaffold"), "Scaffold");
+    }
+}
