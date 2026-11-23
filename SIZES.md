@@ -5,3 +5,4 @@
 | Change | Bytes |
 | --- | ---: |
 | Baseline: thin LTO, codegen-units 1, strip | 812640 |
+| panic = "abort" | 757936 |
