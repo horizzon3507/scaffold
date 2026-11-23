@@ -52,6 +52,8 @@ pub struct DescribeArgs {
     pub preset: String,
     /// Print machine-readable JSON.
     pub json: bool,
+    /// Print the files as a tree instead of a table.
+    pub tree: bool,
 }
 
 /// Version control backend for a new project.
@@ -280,7 +282,11 @@ fn parse_list(args: &[String]) -> Result<Parsed, String> {
 
 fn parse_describe(args: &[String]) -> Result<Parsed, String> {
     let json = args.iter().any(|a| a == "--json");
-    let args: Vec<&String> = args.iter().filter(|a| a.as_str() != "--json").collect();
+    let tree = args.iter().any(|a| a == "--tree");
+    let args: Vec<&String> = args
+        .iter()
+        .filter(|a| a.as_str() != "--json" && a.as_str() != "--tree")
+        .collect();
     let args: Vec<String> = args.into_iter().cloned().collect();
     let args = args.as_slice();
     let Some(preset) = args.first() else {
@@ -295,6 +301,7 @@ fn parse_describe(args: &[String]) -> Result<Parsed, String> {
     Ok(Parsed::Run(Command::Describe(DescribeArgs {
         preset: preset.clone(),
         json,
+        tree,
     })))
 }
 

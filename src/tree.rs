@@ -32,7 +32,11 @@ fn write_node(node: &Node, prefix: &str, out: &mut String) {
     for (name, child) in &node.dirs {
         i += 1;
         let last = i == entries;
-        let (arm, pad) = if last { ("└── ", "    ") } else { ("├── ", "│   ") };
+        let (arm, pad) = if last {
+            ("└── ", "    ")
+        } else {
+            ("├── ", "│   ")
+        };
         out.push_str(&format!("{prefix}{arm}{name}/\n"));
         write_node(child, &format!("{prefix}{pad}"), out);
     }
