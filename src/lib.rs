@@ -12,5 +12,6 @@ pub mod preset;
 pub mod presets;
 pub mod quiet;
 pub mod render;
+pub mod sigpipe;
 pub mod template;
 pub mod tree;
