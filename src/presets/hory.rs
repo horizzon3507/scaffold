@@ -18,5 +18,6 @@ fn templates() -> Vec<Template> {
         Template::new(".github/workflows/ci.yml", include_str!("../../templates/hory/.github/workflows/ci.yml")),
         Template::new("CHANGELOG.md", include_str!("../../templates/hory/CHANGELOG.md")),
         Template::new("README.md", include_str!("../../templates/hory/README.md")),
+        Template::new("LICENSE", include_str!("../../templates/hory/LICENSE")),
     ]
 }
