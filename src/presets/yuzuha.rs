@@ -15,5 +15,6 @@ fn templates() -> Vec<Template> {
         Template::new("package.json", include_str!("../../templates/yuzuha/package.json")),
         Template::new("tsconfig.json", include_str!("../../templates/yuzuha/tsconfig.json")),
         Template::new("commands/ping.ts", include_str!("../../templates/yuzuha/commands/ping.ts")),
+        Template::new("commands/eco.ts", include_str!("../../templates/yuzuha/commands/eco.ts")),
     ]
 }
