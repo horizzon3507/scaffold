@@ -45,7 +45,7 @@ scaffold new api -p go --dir ~/code/api --vcs none
 | `make` | C project driven by a Makefile |
 | `terraform` | Terraform module |
 
-List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset>`.
+List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset> --tree`.
 
 ## Template variables
 
