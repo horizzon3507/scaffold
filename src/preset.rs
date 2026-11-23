@@ -48,10 +48,11 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
 /// Print the presets for `scaffold list`.
 pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
     for p in all() {
+        let default = if p.name == "hory" { " (default)" } else { "" };
         if args.verbose {
-            println!("{:<8} {}", p.name, p.description);
+            println!("{:<8} {}{}", p.name, p.description, default);
         } else {
-            println!("{}", p.name);
+            println!("{}{}", p.name, default);
         }
     }
     Ok(())
