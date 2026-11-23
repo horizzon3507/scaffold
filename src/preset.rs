@@ -19,7 +19,14 @@ pub struct Preset {
 /// Every preset, in display order. `hory` stays first: it is the default.
 pub fn all() -> Vec<Preset> {
     vec![
-        presets::hory::PRESET,    ]
+        presets::hory::PRESET,
+        presets::rust::PRESET,
+        presets::web::PRESET,
+        presets::yuzuha::PRESET,
+        presets::python::PRESET,
+        presets::node::PRESET,
+        presets::go::PRESET,
+        presets::docs::PRESET,    ]
 }
 
 /// Look a preset up by name.

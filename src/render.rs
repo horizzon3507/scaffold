@@ -10,6 +10,8 @@ pub struct Context {
     pub name: String,
     /// Title-cased name, e.g. `My App`.
     pub title: String,
+    /// Snake-cased name, e.g. `my_app`, for Python packages.
+    pub snake: String,
     /// Author recorded in metadata, e.g. `horizzon3507`.
     pub author: String,
     /// Current year, e.g. `2026`.
@@ -24,6 +26,7 @@ impl Context {
         Self {
             name: name.to_string(),
             title: name::title_case(name),
+            snake: name.replace('-', "_"),
             author: author.map(str::to_string).unwrap_or_else(detect_author),
             year: year(),
             date: today(),
@@ -70,6 +73,7 @@ impl Context {
     pub fn render(&self, text: &str) -> String {
         text.replace("{{name}}", &self.name)
             .replace("{{Name}}", &self.title)
+            .replace("{{name_snake}}", &self.snake)
             .replace("{{author}}", &self.author)
             .replace("{{year}}", &self.year)
             .replace("{{date}}", &self.date)
@@ -111,6 +115,11 @@ mod tests {
         let out = ctx().render("{{name}} {{Name}} {{author}} {{year}} {{date}}");
         assert!(out.starts_with("my-app My App hory "));
         assert!(!out.contains("{{"));
+    }
+
+    #[test]
+    fn renders_snake_case_names() {
+        assert_eq!(ctx().render("{{name_snake}}"), "my_app");
     }
 
     #[test]

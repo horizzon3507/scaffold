@@ -58,3 +58,57 @@ fn hory_generates_a_rust_cli() {
     let changelog = std::fs::read_to_string(dir.join("CHANGELOG.md")).unwrap();
     assert!(!changelog.contains("{{"));
 }
+
+#[test]
+fn rust_generates_a_minimal_cli() {
+    let dir = generate("rust", "rust");
+    assert_files(&dir, &["Cargo.toml", "src/main.rs", "README.md", "CHANGELOG.md", "LICENSE", ".gitignore"]);
+    let manifest = std::fs::read_to_string(dir.join("Cargo.toml")).unwrap();
+    assert!(manifest.contains("demo-app"));
+}
+
+#[test]
+fn web_generates_a_static_site() {
+    let dir = generate("web", "web");
+    assert_files(&dir, &["index.html", "style.css", "app.js", "package.json", "README.md", ".gitignore"]);
+    let html = std::fs::read_to_string(dir.join("index.html")).unwrap();
+    assert!(html.contains("Demo App"));
+}
+
+#[test]
+fn yuzuha_generates_a_bot() {
+    let dir = generate("yuzuha", "yuzuha");
+    assert_files(&dir, &["package.json", "tsconfig.json", "commands/ping.ts", "commands/eco.ts", ".env.example", ".gitignore", "README.md"]);
+    let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
+    assert!(pkg.contains("yuzuha"));
+}
+
+#[test]
+fn python_generates_a_package() {
+    let dir = generate("python", "python");
+    assert_files(&dir, &["pyproject.toml", "src/demo_app/__init__.py", "src/demo_app/__main__.py", "tests/test_smoke.py", "README.md", ".gitignore", "LICENSE"]);
+    let pyproject = std::fs::read_to_string(dir.join("pyproject.toml")).unwrap();
+    assert!(pyproject.contains("demo_app"));
+}
+
+#[test]
+fn node_generates_a_ts_cli() {
+    let dir = generate("node", "node");
+    assert_files(&dir, &["package.json", "tsconfig.json", "src/index.ts", "README.md", ".gitignore", "LICENSE"]);
+    let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
+    assert!(pkg.contains("demo-app"));
+}
+
+#[test]
+fn go_generates_a_cli() {
+    let dir = generate("go", "go");
+    assert_files(&dir, &["go.mod", "main.go", "Makefile", "README.md", ".gitignore"]);
+    let gomod = std::fs::read_to_string(dir.join("go.mod")).unwrap();
+    assert!(gomod.contains("demo-app"));
+}
+
+#[test]
+fn docs_generates_guides() {
+    let dir = generate("docs", "docs");
+    assert_files(&dir, &["README.md", "docs/index.md", "docs/usage.md", "CHANGELOG.md"]);
+}
