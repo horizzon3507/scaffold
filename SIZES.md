@@ -26,3 +26,4 @@
 | describe --show added | 453080 |
 | SIGPIPE fix | 453112 |
 | svelte, vue, express, fastapi presets added | 457832 |
+| v0.3.0 release | 457832 |
