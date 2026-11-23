@@ -10,6 +10,8 @@ pub enum Command {
     List(ListArgs),
     /// Show the files a preset generates.
     Describe(DescribeArgs),
+    /// Print a shell completion script.
+    Completions(CompletionsArgs),
 }
 
 /// Arguments for `scaffold new`.
@@ -34,6 +36,12 @@ pub struct NewArgs {
 pub struct ListArgs {
     /// Show each preset's description too.
     pub verbose: bool,
+}
+
+/// Arguments for `scaffold completions`.
+pub struct CompletionsArgs {
+    /// Target shell.
+    pub shell: String,
 }
 
 /// Arguments for `scaffold describe`.
@@ -156,6 +164,7 @@ pub fn parse(argv: &[String]) -> Result<Parsed, String> {
         "new" => parse_new(&argv[1..]),
         "list" => parse_list(&argv[1..]),
         "describe" => parse_describe(&argv[1..]),
+        "completions" => parse_completions(&argv[1..]),
         "-h" | "--help" => Ok(Parsed::Help(HELP)),
         "-V" | "--version" => Ok(Parsed::Version),
         other => Err(format!("unknown command '{other}' (try --help)")),
@@ -217,6 +226,20 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
         vcs: f.vcs.unwrap_or(Vcs::Git),
         author: f.author,
     })))
+}
+
+fn parse_completions(args: &[String]) -> Result<Parsed, String> {
+    let mut shell = None;
+    for a in args {
+        if a.starts_with('-') {
+            return Err(format!("unknown flag '{a}' for completions"));
+        }
+        if shell.replace(a.clone()).is_some() {
+            return Err("completions takes exactly one shell name".to_string());
+        }
+    }
+    let shell = shell.ok_or_else(|| "completions needs a shell: bash, zsh, or fish".to_string())?;
+    Ok(Parsed::Run(Command::Completions(CompletionsArgs { shell })))
 }
 
 fn parse_list(args: &[String]) -> Result<Parsed, String> {

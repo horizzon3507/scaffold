@@ -3,8 +3,16 @@
 use std::process::ExitCode;
 
 use scaffold_cli::cli::{self, Parsed};
+use scaffold_cli::completions::{self, Shell};
 use scaffold_cli::error::AppResult as Result;
 use scaffold_cli::{generate, preset};
+
+fn run_completions(args: cli::CompletionsArgs) -> Result<()> {
+    let shell = Shell::parse(&args.shell)
+        .ok_or_else(|| format!("unknown shell '{}' (try bash, zsh, or fish)", args.shell))?;
+    print!("{}", completions::script(shell));
+    Ok(())
+}
 
 fn main() -> ExitCode {
     let argv: Vec<String> = std::env::args().skip(1).collect();
@@ -36,5 +44,6 @@ fn run(command: cli::Command) -> Result<()> {
         cli::Command::New(args) => generate::run_new(&args),
         cli::Command::List(args) => preset::run_list(&args),
         cli::Command::Describe(args) => preset::run_describe(&args),
+        cli::Command::Completions(args) => run_completions(args),
     }
 }
