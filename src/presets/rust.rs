@@ -1,0 +1,16 @@
+//! The `rust` preset: Minimal Rust CLI: manifest, main, license, changelog
+
+use crate::preset::Preset;
+use crate::template::Template;
+
+/// The `rust` preset.
+pub const PRESET: Preset = Preset {
+    name: "rust",
+    description: "Minimal Rust CLI: manifest, main, license, changelog",
+    templates: templates,
+};
+
+fn templates() -> Vec<Template> {
+    vec![
+    ]
+}
