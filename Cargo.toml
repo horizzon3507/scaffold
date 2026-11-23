@@ -13,3 +13,7 @@ categories = ["command-line-utilities"]
 [[bin]]
 name = "scaffold"
 path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
