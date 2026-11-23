@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "docs",
     description: "Docs-only project: readme, guides, changelog",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

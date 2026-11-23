@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "rust",
     description: "Minimal Rust CLI: manifest, main, license, changelog",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

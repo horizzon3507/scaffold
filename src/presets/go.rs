@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "go",
     description: "Go CLI: go.mod, main.go, Makefile",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

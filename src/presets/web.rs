@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "web",
     description: "Static web app: html, css, js, package.json",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

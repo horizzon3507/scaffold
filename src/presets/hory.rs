@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "hory",
     description: "Hory-style Rust CLI: clap, CI, changelog, readme, license",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

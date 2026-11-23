@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "python",
     description: "Python CLI: pyproject, src layout, smoke test",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

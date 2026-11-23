@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "yuzuha",
     description: "Yuzuha bot for Fluxer: tsconfig, ping/eco commands, env",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {

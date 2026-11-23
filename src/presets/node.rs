@@ -7,7 +7,7 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "node",
     description: "Node + TypeScript CLI: bin, tsconfig, entrypoint",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {
