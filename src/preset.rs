@@ -62,7 +62,9 @@ pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
 pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
     println!("{} - {}", p.name, p.description);
-    for t in (p.templates)() {
+    let mut templates = (p.templates)();
+    templates.sort_by(|a, b| a.path.cmp(b.path));
+    for t in &templates {
         t.validate()?;
         println!("  {}", t.path);
     }
