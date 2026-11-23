@@ -30,12 +30,12 @@ fn main() -> ExitCode {
         Ok(Parsed::Run(command)) => match run(command) {
             Ok(()) => ExitCode::SUCCESS,
             Err(err) => {
-                eprintln!("error: {err:#}");
+                eprintln!("{} {err:#}", color::red("error:"));
                 ExitCode::FAILURE
             }
         },
         Err(msg) => {
-            eprintln!("error: {msg}");
+            eprintln!("{} {msg}", color::red("error:"));
             ExitCode::FAILURE
         }
     }

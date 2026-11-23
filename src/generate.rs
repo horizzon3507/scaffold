@@ -7,6 +7,7 @@ use std::process::Command;
 use crate::error::AppResult as Result;
 
 use crate::cli::{NewArgs, Vcs};
+use crate::color;
 use crate::preset;
 use crate::render;
 
@@ -74,11 +75,12 @@ impl Plan {
     fn print(&self) {
         println!(
             "would create {} file(s) under {}",
-            self.files.len(),
+            color::bold(&self.files.len().to_string()),
             self.root.display()
         );
         for f in &self.files {
-            println!("  {} ({} bytes)", f.dest.display(), f.contents.len());
+            let size = color::dim(&format!("({} bytes)", f.contents.len()));
+            println!("  {} {size}", f.dest.display());
         }
     }
 }
@@ -101,11 +103,19 @@ pub fn run_new(args: &NewArgs) -> Result<()> {
 
 /// What to do with the fresh project.
 fn print_next_steps(args: &NewArgs, plan: &Plan) {
-    println!("created {} in {}", args.name, plan.root.display());
+    println!(
+        "{} {} in {}",
+        color::green("created"),
+        color::bold(&args.name),
+        plan.root.display()
+    );
     println!();
-    println!("next steps:");
-    println!("  cd {}", plan.root.display());
-    println!("  scaffold describe {}", args.preset);
+    println!("{}", color::dim("next steps:"));
+    println!("{}", color::dim(&format!("  cd {}", plan.root.display())));
+    println!(
+        "{}",
+        color::dim(&format!("  scaffold describe {}", args.preset))
+    );
 }
 
 /// Initialize a git repository, warning instead of failing without git.
@@ -115,8 +125,14 @@ fn init_git(root: &Path) {
         .current_dir(root)
         .status()
     {
-        Ok(status) if status.success() => println!("initialized git repository"),
-        Ok(status) => eprintln!("warning: git init exited with {status}"),
-        Err(err) => eprintln!("warning: could not run git: {err}"),
+        Ok(status) if status.success() => println!("{}", color::dim("initialized git repository")),
+        Ok(status) => eprintln!(
+            "{}",
+            color::yellow(&format!("warning: git init exited with {status}"))
+        ),
+        Err(err) => eprintln!(
+            "{}",
+            color::yellow(&format!("warning: could not run git: {err}"))
+        ),
     }
 }
