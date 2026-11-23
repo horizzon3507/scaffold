@@ -43,3 +43,13 @@ Templates can use these slots, in contents and in file paths:
 | `{{author}}` | `--author`, else `git config user.name` |
 | `{{year}}` | the current year |
 | `{{date}}` | today as DD/MM/YYYY |
+
+## Development
+
+```sh
+cargo fmt
+cargo clippy --all-targets -- -D warnings
+cargo test
+```
+
+Commits follow Conventional Commits and every commit builds. Record changes in [CHANGELOG.md](CHANGELOG.md), Hory-style.
