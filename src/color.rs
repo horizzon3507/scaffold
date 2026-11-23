@@ -8,11 +8,19 @@ use std::sync::atomic::{AtomicBool, Ordering};
 
 static ENABLED: AtomicBool = AtomicBool::new(true);
 
+/// The color decision: off when flagged off, when NO_COLOR is set,
+/// or when stdout is not a terminal.
+pub fn decide(disabled_by_flag: bool, no_color_env: bool, tty: bool) -> bool {
+    !disabled_by_flag && !no_color_env && tty
+}
+
 /// Decide once at startup. `disabled_by_flag` is the `--no-color` flag.
 pub fn init(disabled_by_flag: bool) {
-    let on = !disabled_by_flag
-        && std::env::var_os("NO_COLOR").is_none()
-        && std::io::stdout().is_terminal();
+    let on = decide(
+        disabled_by_flag,
+        std::env::var_os("NO_COLOR").is_some(),
+        std::io::stdout().is_terminal(),
+    );
     ENABLED.store(on, Ordering::Relaxed);
 }
 
