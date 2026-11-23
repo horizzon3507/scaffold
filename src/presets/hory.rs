@@ -23,5 +23,6 @@ fn templates() -> Vec<Template> {
         Template::new(".editorconfig", include_str!("../../templates/hory/.editorconfig")),
         Template::new("rustfmt.toml", include_str!("../../templates/hory/rustfmt.toml")),
         Template::new("CONTRIBUTING.md", include_str!("../../templates/hory/CONTRIBUTING.md")),
+        Template::new(".github/ISSUE_TEMPLATE/bug_report.md", include_str!("../../templates/hory/.github/ISSUE_TEMPLATE/bug_report.md")),
     ]
 }
