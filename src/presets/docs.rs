@@ -12,5 +12,6 @@ pub const PRESET: Preset = Preset {
 
 fn templates() -> Vec<Template> {
     vec![
+        Template::new("README.md", include_str!("../../templates/docs/README.md")),
     ]
 }
