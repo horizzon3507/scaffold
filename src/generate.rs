@@ -87,8 +87,17 @@ pub fn run_new(args: &NewArgs) -> Result<()> {
         Vcs::Git => init_git(&plan.root),
         Vcs::None => {}
     }
-    println!("created {} in {}", args.name, plan.root.display());
+    print_next_steps(args, &plan);
     Ok(())
+}
+
+/// What to do with the fresh project.
+fn print_next_steps(args: &NewArgs, plan: &Plan) {
+    println!("created {} in {}", args.name, plan.root.display());
+    println!();
+    println!("next steps:");
+    println!("  cd {}", plan.root.display());
+    println!("  scaffold describe {}", args.preset);
 }
 
 /// Initialize a git repository, warning instead of failing without git.
