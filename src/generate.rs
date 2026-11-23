@@ -88,11 +88,7 @@ impl Plan {
 /// Run `scaffold new`.
 pub fn run_new(args: &NewArgs) -> Result<()> {
     let cfg = crate::config::load();
-    let preset_name = args
-        .preset
-        .clone()
-        .or(cfg.default_preset)
-        .unwrap_or_else(|| "hory".to_string());
+    let preset_name = resolve_preset(args, &cfg)?;
     let author = args.author.clone().or(cfg.author);
     let vcs = match args.vcs.or_else(|| cfg.vcs.as_deref().and_then(parse_vcs)) {
         Some(v) => v,
@@ -110,6 +106,32 @@ pub fn run_new(args: &NewArgs) -> Result<()> {
     }
     print_next_steps(args, &plan, &preset_name);
     Ok(())
+}
+
+/// The preset for a run: the flag, then the config, then the picker on a
+/// terminal, then the default.
+fn resolve_preset(args: &NewArgs, cfg: &crate::config::Config) -> Result<String> {
+    if let Some(p) = args.preset.clone().or_else(|| cfg.default_preset.clone()) {
+        return Ok(p);
+    }
+    if args.no_input || !interactive() {
+        return Ok("hory".to_string());
+    }
+    let presets = preset::all();
+    let mut stdin = std::io::stdin().lock();
+    let mut stdout = std::io::stdout().lock();
+    Ok(crate::pick::choose(
+        &presets,
+        "hory",
+        &mut stdin,
+        &mut stdout,
+    )?)
+}
+
+/// True when both stdin and stdout are terminals.
+fn interactive() -> bool {
+    use std::io::IsTerminal;
+    std::io::stdin().is_terminal() && std::io::stdout().is_terminal()
 }
 
 /// Read the config's vcs string; an unknown value is ignored.
