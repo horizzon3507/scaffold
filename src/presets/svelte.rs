@@ -20,13 +20,25 @@ fn templates() -> Vec<Template> {
             "vite.config.js",
             include_str!("../../templates/svelte/vite.config.js"),
         ),
-        Template::new("index.html", include_str!("../../templates/svelte/index.html")),
-        Template::new("src/main.js", include_str!("../../templates/svelte/src/main.js")),
+        Template::new(
+            "index.html",
+            include_str!("../../templates/svelte/index.html"),
+        ),
+        Template::new(
+            "src/main.js",
+            include_str!("../../templates/svelte/src/main.js"),
+        ),
         Template::new(
             "src/App.svelte",
             include_str!("../../templates/svelte/src/App.svelte"),
         ),
-        Template::new(".gitignore", include_str!("../../templates/svelte/.gitignore")),
-        Template::new("README.md", include_str!("../../templates/svelte/README.md")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/svelte/.gitignore"),
+        ),
+        Template::new(
+            "README.md",
+            include_str!("../../templates/svelte/README.md"),
+        ),
     ]
 }

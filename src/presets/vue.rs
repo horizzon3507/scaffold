@@ -21,7 +21,10 @@ fn templates() -> Vec<Template> {
             include_str!("../../templates/vue/vite.config.js"),
         ),
         Template::new("index.html", include_str!("../../templates/vue/index.html")),
-        Template::new("src/main.js", include_str!("../../templates/vue/src/main.js")),
+        Template::new(
+            "src/main.js",
+            include_str!("../../templates/vue/src/main.js"),
+        ),
         Template::new(
             "src/App.vue",
             include_str!("../../templates/vue/src/App.vue"),
