@@ -66,7 +66,7 @@ pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
     templates.sort_by(|a, b| a.path.cmp(b.path));
     for t in &templates {
         t.validate()?;
-        println!("  {}", t.path);
+        println!("  {:<45} {:>6} bytes", t.path, t.contents.len());
     }
     Ok(())
 }
