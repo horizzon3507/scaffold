@@ -29,3 +29,9 @@ impl fmt::Display for Invalid {
 }
 
 impl Error for Invalid {}
+
+/// A boxed error for the CLI surface.
+pub type Failure = Box<dyn Error + Send + Sync>;
+
+/// Result alias used across the app.
+pub type AppResult<T> = std::result::Result<T, Failure>;
