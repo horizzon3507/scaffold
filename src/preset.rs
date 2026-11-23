@@ -35,3 +35,28 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
         }
     }
 }
+
+
+/// Print the presets for `scaffold list`.
+pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
+    for p in all() {
+        if args.verbose {
+            println!("{:<8} {}", p.name, p.description);
+        } else {
+            println!("{}", p.name);
+        }
+    }
+    Ok(())
+}
+
+
+/// Show what a preset generates.
+pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
+    let p = find_or_error(&args.preset)?;
+    println!("{} - {}", p.name, p.description);
+    for t in (p.templates)() {
+        t.validate()?;
+        println!("  {}", t.path);
+    }
+    Ok(())
+}
