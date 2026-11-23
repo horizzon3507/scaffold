@@ -22,7 +22,8 @@ pub fn all() -> Vec<Preset> {
         presets::hory::PRESET,
         presets::rust::PRESET,
         presets::web::PRESET,
-        presets::yuzuha::PRESET,    ]
+        presets::yuzuha::PRESET,
+        presets::python::PRESET,    ]
 }
 
 /// Look a preset up by name.
