@@ -59,7 +59,6 @@ struct Flags {
     dry_run: bool,
     vcs: Option<Vcs>,
     author: Option<String>,
-    verbose: bool,
 }
 
 fn no_value(flag: &str, inline: Option<String>) -> Result<(), String> {
