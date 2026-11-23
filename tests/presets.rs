@@ -199,3 +199,39 @@ fn no_preset_leaves_variables_unrendered() {
         }
     }
 }
+
+#[test]
+fn latex_generates_a_paper() {
+    let dir = generate("latex", "latex");
+    assert_files(&dir, &["main.tex", "Makefile", ".gitignore", "README.md"]);
+    let tex = std::fs::read_to_string(dir.join("main.tex")).unwrap();
+    assert!(tex.contains("\\title{Demo App}"));
+    assert!(tex.contains("\\author{tester}"));
+}
+
+#[test]
+fn zig_generates_a_cli() {
+    let dir = generate("zig", "zig");
+    assert_files(&dir, &["build.zig", "src/main.zig", ".gitignore", "README.md"]);
+    let build = std::fs::read_to_string(dir.join("build.zig")).unwrap();
+    assert!(build.contains(".name = \"demo-app\""));
+}
+
+#[test]
+fn deno_generates_a_cli() {
+    let dir = generate("deno", "deno");
+    assert_files(&dir, &["main.ts", "deno.json", ".gitignore", "README.md"]);
+    let main = std::fs::read_to_string(dir.join("main.ts")).unwrap();
+    assert!(main.contains("demo-app"));
+}
+
+#[test]
+fn flask_generates_an_app() {
+    let dir = generate("flask", "flask");
+    assert_files(
+        &dir,
+        &["app.py", "requirements.txt", ".gitignore", "README.md"],
+    );
+    let app = std::fs::read_to_string(dir.join("app.py")).unwrap();
+    assert!(app.contains("demo-app"));
+}
