@@ -15,5 +15,6 @@ fn templates() -> Vec<Template> {
         Template::new("pyproject.toml", include_str!("../../templates/python/pyproject.toml")),
         Template::new("src/{{name_snake}}/__init__.py", include_str!("../../templates/python/src/{{name_snake}}/__init__.py")),
         Template::new("src/{{name_snake}}/__main__.py", include_str!("../../templates/python/src/{{name_snake}}/__main__.py")),
+        Template::new("tests/test_smoke.py", include_str!("../../templates/python/tests/test_smoke.py")),
     ]
 }
