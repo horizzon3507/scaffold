@@ -1,5 +1,6 @@
 pub mod args;
 pub mod error;
+pub mod generate;
 pub mod name;
 pub mod preset;
 pub mod presets;
