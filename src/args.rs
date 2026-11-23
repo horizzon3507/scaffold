@@ -77,3 +77,43 @@ pub struct DescribeArgs {
     /// Preset to describe.
     pub preset: String,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parses_new_with_defaults() {
+        let cli = Cli::try_parse_from(["scaffold", "new", "demo"]).unwrap();
+        let Command::New(args) = cli.command else {
+            panic!("expected new")
+        };
+        assert_eq!(args.name, "demo");
+        assert_eq!(args.preset, "hory");
+        assert!(!args.force);
+        assert!(!args.dry_run);
+    }
+
+    #[test]
+    fn parses_flags_and_aliases() {
+        let cli = Cli::try_parse_from([
+            "scaffold", "new", "demo", "-p", "rust", "-d", "/tmp/x", "-f", "--dry-run",
+            "--vcs", "none", "--author", "hory",
+        ])
+        .unwrap();
+        let Command::New(args) = cli.command else {
+            panic!("expected new")
+        };
+        assert_eq!(args.preset, "rust");
+        assert_eq!(args.dir.unwrap().to_str().unwrap(), "/tmp/x");
+        assert!(args.force && args.dry_run);
+        assert_eq!(args.author.as_deref(), Some("hory"));
+    }
+
+    #[test]
+    fn parses_list_and_describe() {
+        assert!(Cli::try_parse_from(["scaffold", "list", "-v"]).is_ok());
+        assert!(Cli::try_parse_from(["scaffold", "describe", "hory"]).is_ok());
+        assert!(Cli::try_parse_from(["scaffold", "nope"]).is_err());
+    }
+}
