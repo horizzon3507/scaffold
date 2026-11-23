@@ -21,3 +21,4 @@
 | docker, astro, make, terraform presets added | 428024 |
 | describe --tree added | 435720 |
 | Interactive picker added | 447752 |
+| scaffold init added | 450328 |
