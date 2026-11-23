@@ -28,3 +28,13 @@ fn rejects_unknown_presets_and_lists_available() {
     assert!(stderr.contains("unknown preset 'nope'"));
     assert!(stderr.contains("hory"));
 }
+
+#[test]
+fn list_shows_every_preset() {
+    let out = bin().args(["list"]).output().unwrap();
+    assert!(out.status.success());
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    for preset in ["hory", "rust", "web", "yuzuha", "python", "node", "go", "docs"] {
+        assert!(stdout.contains(preset), "list is missing {preset}");
+    }
+}
