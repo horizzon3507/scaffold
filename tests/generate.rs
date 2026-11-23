@@ -63,3 +63,15 @@ fn overwrites_with_force() {
         .unwrap()
         .contains("demo"));
 }
+
+#[test]
+fn dry_run_writes_nothing() {
+    let dir = workdir("dry");
+    let mut args = args_for(&dir);
+    args.push("--dry-run".into());
+    let out = bin().args(args).output().unwrap();
+    assert!(out.status.success());
+    assert!(!dir.exists());
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    assert!(stdout.contains("would create"));
+}
