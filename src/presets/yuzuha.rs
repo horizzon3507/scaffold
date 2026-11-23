@@ -17,5 +17,6 @@ fn templates() -> Vec<Template> {
         Template::new("commands/ping.ts", include_str!("../../templates/yuzuha/commands/ping.ts")),
         Template::new("commands/eco.ts", include_str!("../../templates/yuzuha/commands/eco.ts")),
         Template::new(".env.example", include_str!("../../templates/yuzuha/.env.example")),
+        Template::new(".gitignore", include_str!("../../templates/yuzuha/.gitignore")),
     ]
 }
