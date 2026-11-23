@@ -14,6 +14,7 @@ cargo install --path .
 scaffold new my-app            # hory bundle by default
 scaffold new my-app -p rust    # pick another preset
 scaffold new my-app --dry-run  # see the plan first
+scaffold init                  # generate into the current directory
 ```
 
 With no `--preset` and no config default, a terminal session offers a
