@@ -113,6 +113,9 @@ pub fn detect_author() -> String {
         .unwrap_or_else(|| "you".to_string())
 }
 
+/// The slots `render` knows, without the braces.
+pub const SLOTS: [&str; 6] = ["name", "Name", "name_snake", "author", "year", "date"];
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -147,6 +150,3 @@ mod tests {
         assert_eq!(civil_from_days(19_782), (2024, 2, 29));
     }
 }
-
-/// The slots `render` knows, without the braces.
-pub const SLOTS: [&str; 6] = ["name", "Name", "name_snake", "author", "year", "date"];
