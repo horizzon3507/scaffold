@@ -49,6 +49,10 @@ scaffold new api -p go --dir ~/code/api --vcs none
 | `astro` | Astro site |
 | `make` | C project driven by a Makefile |
 | `terraform` | Terraform module |
+| `svelte` | Svelte app with Vite |
+| `vue` | Vue app with Vite |
+| `express` | Express API |
+| `fastapi` | FastAPI service |
 
 List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset> --tree`.
 

@@ -11,7 +11,8 @@ fn doctor_runs_and_reports() {
     assert!(stdout.contains("git on PATH"));
     assert!(stdout.contains("config file"));
     assert!(stdout.contains("presets available"));
-    assert!(stdout.contains("16 presets"));
+    let expected = format!("{} presets", scaffold_cli::preset::all().len());
+    assert!(stdout.contains(&expected));
 }
 
 #[test]

@@ -35,6 +35,10 @@ pub fn all() -> Vec<Preset> {
         presets::astro::PRESET,
         presets::make::PRESET,
         presets::terraform::PRESET,
+        presets::svelte::PRESET,
+        presets::vue::PRESET,
+        presets::express::PRESET,
+        presets::fastapi::PRESET,
     ]
 }
 
