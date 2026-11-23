@@ -98,3 +98,11 @@ fn node_generates_a_ts_cli() {
     let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
     assert!(pkg.contains("demo-app"));
 }
+
+#[test]
+fn go_generates_a_cli() {
+    let dir = generate("go", "go");
+    assert_files(&dir, &["go.mod", "main.go", "Makefile", "README.md", ".gitignore"]);
+    let gomod = std::fs::read_to_string(dir.join("go.mod")).unwrap();
+    assert!(gomod.contains("demo-app"));
+}
