@@ -71,3 +71,13 @@ scaffold new api -p go --dir ~/code/api --vcs none
 ## License
 
 Apache-2.0, see [LICENSE](LICENSE).
+
+## Shell completions
+
+Print a completion script for your shell and source it:
+
+```sh
+scaffold completions bash >> ~/.bashrc
+scaffold completions zsh  > "${fpath[1]}/_scaffold"   # zsh
+scaffold completions fish > ~/.config/fish/completions/scaffold.fish
+```
