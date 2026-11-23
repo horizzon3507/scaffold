@@ -31,6 +31,7 @@ pub fn all() -> Vec<Preset> {
         presets::zig::PRESET,
         presets::deno::PRESET,
         presets::flask::PRESET,
+        presets::docker::PRESET,
     ]
 }
 

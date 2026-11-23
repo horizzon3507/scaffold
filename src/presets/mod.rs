@@ -1,6 +1,7 @@
 //! Preset bundles.
 
 pub mod deno;
+pub mod docker;
 pub mod docs;
 pub mod flask;
 pub mod go;
