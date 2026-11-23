@@ -1,5 +1,7 @@
 # scaffold
 
+[![ci](https://github.com/horizzon3507/scaffold/actions/workflows/ci.yml/badge.svg)](https://github.com/horizzon3507/scaffold/actions/workflows/ci.yml)
+
 Spin up new projects from opinionated presets, zero dependencies.
 
 ## Install
