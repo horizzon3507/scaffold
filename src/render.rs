@@ -73,3 +73,12 @@ impl Context {
             .replace("{{date}}", &self.date)
     }
 }
+
+impl Context {
+    /// Render a template path and re-validate the result.
+    pub fn render_path(&self, path: &str) -> Result<String, crate::error::Invalid> {
+        let rendered = self.render(path);
+        crate::template::validate_path(&rendered)?;
+        Ok(rendered)
+    }
+}
