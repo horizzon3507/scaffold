@@ -61,4 +61,16 @@ impl Plan {
         }
         Ok(())
     }
+
+    /// Print what would happen, without writing anything.
+    fn print(&self) {
+        println!(
+            "would create {} file(s) under {}",
+            self.files.len(),
+            self.root.display()
+        );
+        for f in &self.files {
+            println!("  {} ({} bytes)", f.dest.display(), f.contents.len());
+        }
+    }
 }
