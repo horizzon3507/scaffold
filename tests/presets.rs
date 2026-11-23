@@ -112,3 +112,26 @@ fn docs_generates_guides() {
     let dir = generate("docs", "docs");
     assert_files(&dir, &["README.md", "docs/index.md", "docs/usage.md", "CHANGELOG.md"]);
 }
+
+#[test]
+fn no_preset_leaves_variables_unrendered() {
+    for preset in ["hory", "rust", "web", "yuzuha", "python", "node", "go", "docs"] {
+        let dir = generate(preset, "clean");
+        let mut stack = vec![dir];
+        while let Some(d) = stack.pop() {
+            for entry in std::fs::read_dir(d).unwrap() {
+                let path = entry.unwrap().path();
+                if path.is_dir() {
+                    stack.push(path);
+                } else {
+                    let text = std::fs::read_to_string(&path).unwrap();
+                    assert!(
+                        !text.contains("{{"),
+                        "{preset} left variables in {}",
+                        path.display()
+                    );
+                }
+            }
+        }
+    }
+}
