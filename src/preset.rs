@@ -38,6 +38,7 @@ pub fn all() -> Vec<Preset> {
         presets::svelte::PRESET,
         presets::vue::PRESET,
         presets::express::PRESET,
+        presets::fastapi::PRESET,
     ]
 }
 

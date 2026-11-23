@@ -5,6 +5,7 @@ pub mod deno;
 pub mod docker;
 pub mod docs;
 pub mod express;
+pub mod fastapi;
 pub mod flask;
 pub mod go;
 pub mod hory;
