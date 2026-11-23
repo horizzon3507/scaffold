@@ -74,3 +74,11 @@ fn web_generates_a_static_site() {
     let html = std::fs::read_to_string(dir.join("index.html")).unwrap();
     assert!(html.contains("Demo App"));
 }
+
+#[test]
+fn yuzuha_generates_a_bot() {
+    let dir = generate("yuzuha", "yuzuha");
+    assert_files(&dir, &["package.json", "tsconfig.json", "commands/ping.ts", "commands/eco.ts", ".env.example", ".gitignore", "README.md"]);
+    let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
+    assert!(pkg.contains("yuzuha"));
+}
