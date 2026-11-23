@@ -102,7 +102,6 @@ fn parse_vcs(value: &str) -> Result<Vcs, String> {
     }
 }
 
-
 const HELP: &str = "\
 scaffold - scaffolds new projects from opinionated presets
 
@@ -269,8 +268,18 @@ mod tests {
     #[test]
     fn parses_flags_and_aliases() {
         let Ok(Parsed::Run(Command::New(args))) = parse(&v(&[
-            "new", "demo", "-p", "rust", "-d", "/tmp/x", "-f", "--dry-run", "--vcs", "none",
-            "--author", "hory",
+            "new",
+            "demo",
+            "-p",
+            "rust",
+            "-d",
+            "/tmp/x",
+            "-f",
+            "--dry-run",
+            "--vcs",
+            "none",
+            "--author",
+            "hory",
         ])) else {
             panic!("expected new")
         };
