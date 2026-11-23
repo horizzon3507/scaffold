@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" alt="" width="160" />
+</p>
+
 # scaffold
 
 [![ci](https://github.com/horizzon3507/scaffold/actions/workflows/ci.yml/badge.svg)](https://github.com/horizzon3507/scaffold/actions/workflows/ci.yml)
