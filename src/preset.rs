@@ -3,6 +3,7 @@
 use anyhow::bail;
 use anyhow::Result;
 
+use crate::presets;
 use crate::template::Template;
 
 /// A named bundle of templates.
@@ -17,7 +18,8 @@ pub struct Preset {
 
 /// Every preset, in display order. `hory` stays first: it is the default.
 pub fn all() -> Vec<Preset> {
-    vec![]
+    vec![
+        presets::hory::PRESET,    ]
 }
 
 /// Look a preset up by name.
@@ -36,7 +38,6 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
     }
 }
 
-
 /// Print the presets for `scaffold list`.
 pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
     for p in all() {
@@ -48,7 +49,6 @@ pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
     }
     Ok(())
 }
-
 
 /// Show what a preset generates.
 pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
