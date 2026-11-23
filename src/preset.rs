@@ -1,7 +1,6 @@
 //! Preset model and registry.
 
-use anyhow::Result;
-use anyhow::bail;
+use crate::error::AppResult as Result;
 
 use crate::presets;
 use crate::template::Template;
@@ -41,7 +40,7 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
         Some(p) => Ok(p),
         None => {
             let known = all().iter().map(|p| p.name).collect::<Vec<_>>().join(", ");
-            bail!("unknown preset '{name}' (available: {known})")
+            Err(format!("unknown preset '{name}' (available: {known})").into())
         }
     }
 }

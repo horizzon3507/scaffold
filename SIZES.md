@@ -10,3 +10,4 @@
 | lto = "fat" | 616112 |
 | opt-level = "s" measured 645632, reverted to z | 616096 |
 | Hand-rolled parser, clap removed | 421312 |
+| anyhow removed: zero dependencies | 401328 |

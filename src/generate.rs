@@ -4,7 +4,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use anyhow::{Context as _, Result, bail};
+use crate::error::AppResult as Result;
 
 use crate::cli::{NewArgs, Vcs};
 use crate::preset;
@@ -52,19 +52,20 @@ impl Plan {
                 .map(|f| f.dest.display().to_string())
                 .collect::<Vec<_>>()
                 .join(", ");
-            bail!(
+            return Err(format!(
                 "{} path(s) already exist, use --force to overwrite: {}",
                 clashes.len(),
                 names
-            );
+            )
+            .into());
         }
         for f in &self.files {
             if let Some(parent) = f.dest.parent() {
                 fs::create_dir_all(parent)
-                    .with_context(|| format!("creating {}", parent.display()))?;
+                    .map_err(|e| format!("creating {}: {e}", parent.display()))?;
             }
             fs::write(&f.dest, &f.contents)
-                .with_context(|| format!("writing {}", f.dest.display()))?;
+                .map_err(|e| format!("writing {}: {e}", f.dest.display()))?;
         }
         Ok(())
     }

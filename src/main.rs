@@ -2,8 +2,8 @@
 
 use std::process::ExitCode;
 
-use anyhow::Result;
 use scaffold_cli::cli::{self, Parsed};
+use scaffold_cli::error::AppResult as Result;
 use scaffold_cli::{generate, preset};
 
 fn main() -> ExitCode {
