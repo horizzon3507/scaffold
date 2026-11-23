@@ -14,5 +14,6 @@ fn templates() -> Vec<Template> {
     vec![
         Template::new("go.mod", include_str!("../../templates/go/go.mod")),
         Template::new("main.go", include_str!("../../templates/go/main.go")),
+        Template::new("Makefile", include_str!("../../templates/go/Makefile")),
     ]
 }
