@@ -6,7 +6,7 @@ use std::process::Command;
 
 use anyhow::{Context as _, Result, bail};
 
-use crate::args::{NewArgs, Vcs};
+use crate::cli::{NewArgs, Vcs};
 use crate::preset;
 use crate::render;
 

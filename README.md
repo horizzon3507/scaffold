@@ -44,6 +44,12 @@ Templates can use these slots, in contents and in file paths:
 | `{{year}}` | the current year |
 | `{{date}}` | today as DD/MM/YYYY |
 
+## Binary size
+
+The CLI is dependency-light by design: the argument parser is hand-rolled and
+release builds are tuned for size (fat LTO, `opt-level = "z"`, `panic = "abort"`,
+stripped symbols). Measurements live in [SIZES.md](SIZES.md).
+
 ## Development
 
 ```sh

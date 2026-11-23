@@ -47,7 +47,7 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
 }
 
 /// Print the presets for `scaffold list`.
-pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
+pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
     for p in all() {
         let default = if p.name == "hory" { " (default)" } else { "" };
         if args.verbose {
@@ -60,7 +60,7 @@ pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
 }
 
 /// Show what a preset generates.
-pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
+pub fn run_describe(args: &crate::cli::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
     println!("{} - {}", p.name, p.description);
     let mut templates = (p.templates)();
