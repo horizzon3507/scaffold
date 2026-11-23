@@ -71,12 +71,23 @@ pub fn year() -> String {
 impl Context {
     /// Replace every `{{variable}}` slot in `text`.
     pub fn render(&self, text: &str) -> String {
-        text.replace("{{name}}", &self.name)
-            .replace("{{Name}}", &self.title)
-            .replace("{{name_snake}}", &self.snake)
-            .replace("{{author}}", &self.author)
-            .replace("{{year}}", &self.year)
-            .replace("{{date}}", &self.date)
+        let mut out = text.to_string();
+        for slot in SLOTS {
+            out = out.replace(&format!("{{{{{slot}}}}}"), self.value(slot));
+        }
+        out
+    }
+
+    fn value(&self, slot: &str) -> &str {
+        match slot {
+            "name" => &self.name,
+            "Name" => &self.title,
+            "name_snake" => &self.snake,
+            "author" => &self.author,
+            "year" => &self.year,
+            "date" => &self.date,
+            _ => unreachable!(),
+        }
     }
 }
 
@@ -136,3 +147,6 @@ mod tests {
         assert_eq!(civil_from_days(19_782), (2024, 2, 29));
     }
 }
+
+/// The slots `render` knows, without the braces.
+pub const SLOTS: [&str; 6] = ["name", "Name", "name_snake", "author", "year", "date"];
