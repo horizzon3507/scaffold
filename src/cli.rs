@@ -79,6 +79,13 @@ fn take_value(
     }
 }
 
+fn split_flag(arg: &str) -> (&str, Option<String>) {
+    match arg.split_once('=') {
+        Some((k, v)) => (k, Some(v.to_string())),
+        None => (arg, None),
+    }
+}
+
 fn parse_vcs(value: &str) -> Result<Vcs, String> {
     match value {
         "git" => Ok(Vcs::Git),
@@ -109,19 +116,21 @@ fn parse_new(args: &[String]) -> Result<Command, String> {
     while i < args.len() {
         let arg = &args[i];
         if let Some(long) = arg.strip_prefix("--") {
-            match long {
-                "preset" => f.preset = Some(take_value("--preset", None, args, &mut i)?),
-                "dir" => f.dir = Some(PathBuf::from(take_value("--dir", None, args, &mut i)?)),
+            let (key, inline) = split_flag(long);
+            match key {
+                "preset" => f.preset = Some(take_value("--preset", inline, args, &mut i)?),
+                "dir" => f.dir = Some(PathBuf::from(take_value("--dir", inline, args, &mut i)?)),
                 "force" => f.force = true,
                 "dry-run" => f.dry_run = true,
-                "vcs" => f.vcs = Some(parse_vcs(&take_value("--vcs", None, args, &mut i)?)?),
-                "author" => f.author = Some(take_value("--author", None, args, &mut i)?),
+                "vcs" => f.vcs = Some(parse_vcs(&take_value("--vcs", inline, args, &mut i)?)?),
+                "author" => f.author = Some(take_value("--author", inline, args, &mut i)?),
                 other => return Err(format!("unknown flag --{other}")),
             }
         } else if let Some(short) = arg.strip_prefix('-') {
-            match short {
-                "p" => f.preset = Some(take_value("-p", None, args, &mut i)?),
-                "d" => f.dir = Some(PathBuf::from(take_value("-d", None, args, &mut i)?)),
+            let (key, inline) = split_flag(short);
+            match key {
+                "p" => f.preset = Some(take_value("-p", inline, args, &mut i)?),
+                "d" => f.dir = Some(PathBuf::from(take_value("-d", inline, args, &mut i)?)),
                 "f" => f.force = true,
                 other => return Err(format!("unknown flag -{other}")),
             }
@@ -211,6 +220,17 @@ mod tests {
             Ok(Command::Describe(_))
         ));
         assert!(parse(&v(&["nope"])).is_err());
+    }
+
+    #[test]
+    fn parses_the_equals_form() {
+        let Command::New(args) = parse(&v(&["new", "demo", "--preset=rust", "--author=hory"]))
+            .unwrap()
+        else {
+            panic!("expected new")
+        };
+        assert_eq!(args.preset, "rust");
+        assert_eq!(args.author.as_deref(), Some("hory"));
     }
 
     #[test]
