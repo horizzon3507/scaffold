@@ -13,5 +13,6 @@ pub const PRESET: Preset = Preset {
 fn templates() -> Vec<Template> {
     vec![
         Template::new("pyproject.toml", include_str!("../../templates/python/pyproject.toml")),
+        Template::new("src/{{name_snake}}/__init__.py", include_str!("../../templates/python/src/{{name_snake}}/__init__.py")),
     ]
 }
