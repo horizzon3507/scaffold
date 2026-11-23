@@ -69,7 +69,7 @@ fn list_json() -> String {
 /// Print the presets for `scaffold list`.
 pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
     if args.json {
-        println!("{}", list_json());
+        crate::out!("{}", list_json());
         return Ok(());
     }
     for p in all() {
@@ -80,9 +80,9 @@ pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
             String::new()
         };
         if args.verbose {
-            println!("{name:<17} {}{}", p.description, default);
+            crate::out!("{name:<17} {}{}", p.description, default);
         } else {
-            println!("{name}{default}");
+            crate::out!("{name}{default}");
         }
     }
     Ok(())
@@ -117,16 +117,16 @@ pub fn run_describe(args: &crate::cli::DescribeArgs) -> Result<()> {
         for t in &templates {
             t.validate()?;
         }
-        println!("{}", describe_json(&p, &templates));
+        crate::out!("{}", describe_json(&p, &templates));
         return Ok(());
     }
-    println!("{} - {}", color::bold(p.name), color::dim(p.description));
+    crate::out!("{} - {}", color::bold(p.name), color::dim(p.description));
     let mut templates = (p.templates)();
     templates.sort_by(|a, b| a.path.cmp(b.path));
     for t in &templates {
         t.validate()?;
         let size = color::dim(&format!("{:>6} bytes", t.contents.len()));
-        println!("  {:<53} {size}", t.path);
+        crate::out!("  {:<53} {size}", t.path);
     }
     Ok(())
 }

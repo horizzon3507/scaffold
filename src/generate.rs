@@ -73,14 +73,14 @@ impl Plan {
 
     /// Print what would happen, without writing anything.
     fn print(&self) {
-        println!(
+        crate::out!(
             "would create {} file(s) under {}",
             color::bold(&self.files.len().to_string()),
             self.root.display()
         );
         for f in &self.files {
             let size = color::dim(&format!("({} bytes)", f.contents.len()));
-            println!("  {} {size}", f.dest.display());
+            crate::out!("  {} {size}", f.dest.display());
         }
     }
 }
@@ -123,16 +123,16 @@ fn parse_vcs(value: &str) -> Option<Vcs> {
 
 /// What to do with the fresh project.
 fn print_next_steps(args: &NewArgs, plan: &Plan, preset_name: &str) {
-    println!(
+    crate::out!(
         "{} {} in {}",
         color::green("created"),
         color::bold(&args.name),
         plan.root.display()
     );
-    println!();
-    println!("{}", color::dim("next steps:"));
-    println!("{}", color::dim(&format!("  cd {}", plan.root.display())));
-    println!(
+    crate::out!();
+    crate::out!("{}", color::dim("next steps:"));
+    crate::out!("{}", color::dim(&format!("  cd {}", plan.root.display())));
+    crate::out!(
         "{}",
         color::dim(&format!("  scaffold describe {preset_name}"))
     );
@@ -145,7 +145,9 @@ fn init_git(root: &Path) {
         .current_dir(root)
         .status()
     {
-        Ok(status) if status.success() => println!("{}", color::dim("initialized git repository")),
+        Ok(status) if status.success() => {
+            crate::out!("{}", color::dim("initialized git repository"))
+        }
         Ok(status) => eprintln!(
             "{}",
             color::yellow(&format!("warning: git init exited with {status}"))
