@@ -24,4 +24,8 @@ pub enum Command {
 pub struct NewArgs {
     /// Project name; also the default directory name.
     pub name: String,
+
+    /// Preset to use. Defaults to the `hory` bundle.
+    #[arg(long, default_value = "hory")]
+    pub preset: String,
 }
