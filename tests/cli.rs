@@ -67,3 +67,23 @@ fn describe_prints_the_file_tree() {
     assert!(stdout.contains("Cargo.toml"));
     assert!(stdout.contains("src/main.rs"));
 }
+
+#[test]
+fn describe_show_renders_one_template() {
+    let out = Command::new(env!("CARGO_BIN_EXE_scaffold"))
+        .args(["describe", "rust", "--show", "Cargo.toml"])
+        .output()
+        .unwrap();
+    assert!(out.status.success());
+    let stdout = String::from_utf8(out.stdout).unwrap();
+    assert!(stdout.contains("[package]"));
+    assert!(stdout.contains("name = \"demo\""));
+
+    let out = Command::new(env!("CARGO_BIN_EXE_scaffold"))
+        .args(["describe", "rust", "--show", "nope.txt"])
+        .output()
+        .unwrap();
+    assert!(!out.status.success());
+    let stderr = String::from_utf8(out.stderr).unwrap();
+    assert!(stderr.contains("not in preset"));
+}
