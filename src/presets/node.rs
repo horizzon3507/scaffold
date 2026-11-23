@@ -17,5 +17,6 @@ fn templates() -> Vec<Template> {
         Template::new("src/index.ts", include_str!("../../templates/node/src/index.ts")),
         Template::new("README.md", include_str!("../../templates/node/README.md")),
         Template::new(".gitignore", include_str!("../../templates/node/.gitignore")),
+        Template::new("LICENSE", include_str!("../../templates/node/LICENSE")),
     ]
 }
