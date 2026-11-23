@@ -20,3 +20,4 @@
 | v0.2.0 release | 424360 |
 | docker, astro, make, terraform presets added | 428024 |
 | describe --tree added | 435720 |
+| Interactive picker added | 447752 |

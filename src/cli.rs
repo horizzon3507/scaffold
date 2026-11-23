@@ -30,6 +30,8 @@ pub struct NewArgs {
     pub vcs: Option<Vcs>,
     /// Author name recorded in generated metadata.
     pub author: Option<String>,
+    /// Never prompt; non-interactive use.
+    pub no_input: bool,
 }
 
 /// Arguments for `scaffold list`.
@@ -73,6 +75,7 @@ struct Flags {
     dry_run: bool,
     vcs: Option<Vcs>,
     author: Option<String>,
+    no_input: bool,
 }
 
 fn no_value(flag: &str, inline: Option<String>) -> Result<(), String> {
@@ -150,6 +153,7 @@ OPTIONS:
         --dry-run            Print the plan without writing anything
         --vcs <VCS>          Version control to initialize [default: git] [values: git, none]
         --author <AUTHOR>    Author name recorded in generated metadata
+        --no-input           Never prompt for a preset
     -h, --help               Print help
 ";
 
@@ -214,6 +218,10 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
                     no_value("--dry-run", inline)?;
                     f.dry_run = true;
                 }
+                "no-input" => {
+                    no_value("--no-input", inline)?;
+                    f.no_input = true;
+                }
                 "vcs" => f.vcs = Some(parse_vcs(&take_value("--vcs", inline, args, &mut i)?)?),
                 "author" => f.author = Some(take_value("--author", inline, args, &mut i)?),
                 "help" => return Ok(Parsed::Help(NEW_HELP)),
@@ -249,6 +257,7 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
         dry_run: f.dry_run,
         vcs: f.vcs,
         author: f.author,
+        no_input: f.no_input,
     })))
 }
 

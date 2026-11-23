@@ -16,6 +16,9 @@ scaffold new my-app -p rust    # pick another preset
 scaffold new my-app --dry-run  # see the plan first
 ```
 
+With no `--preset` and no config default, a terminal session offers a
+numbered picker (empty answer keeps `hory`). `--no-input` disables it.
+
 ## Examples
 
 ```sh
