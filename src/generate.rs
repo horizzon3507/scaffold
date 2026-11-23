@@ -83,6 +83,24 @@ pub fn run_new(args: &NewArgs) -> Result<()> {
         return Ok(());
     }
     plan.execute(args.force)?;
+    match args.vcs {
+        Vcs::Git => init_git(&plan.root)?,
+        Vcs::None => {}
+    }
     println!("created {} in {}", args.name, plan.root.display());
+    Ok(())
+}
+
+/// Initialize a git repository with `main` as the default branch.
+fn init_git(root: &Path) -> Result<()> {
+    let status = Command::new("git")
+        .args(["init", "-q", "-b", "main"])
+        .current_dir(root)
+        .status()
+        .context("running git init")?;
+    if !status.success() {
+        bail!("git init exited with {status}");
+    }
+    println!("initialized git repository");
     Ok(())
 }
