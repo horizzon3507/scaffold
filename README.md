@@ -86,3 +86,17 @@ scaffold completions fish > ~/.config/fish/completions/scaffold.fish
 
 Output is colored when stdout is a terminal. Pass `--no-color` or set
 the standard `NO_COLOR` environment variable to disable it.
+
+## Configuration
+
+An optional config file at `~/.config/scaffold/config` (or
+`$XDG_CONFIG_HOME/scaffold/config`, or `$SCAFFOLD_CONFIG`) sets defaults
+in `key = value` lines:
+
+```
+preset = rust
+author = "hory"
+vcs = none
+```
+
+Flags always win over the config.

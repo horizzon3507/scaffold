@@ -18,16 +18,16 @@ pub enum Command {
 pub struct NewArgs {
     /// Project name; also the default directory name.
     pub name: String,
-    /// Preset to use.
-    pub preset: String,
+    /// Preset to use. `None` defers to the config file, then `hory`.
+    pub preset: Option<String>,
     /// Directory to generate into. Defaults to ./<name>.
     pub dir: Option<PathBuf>,
     /// Overwrite files that already exist.
     pub force: bool,
     /// Print the plan without writing anything.
     pub dry_run: bool,
-    /// Version control to initialize.
-    pub vcs: Vcs,
+    /// Version control to initialize. `None` defers to the config file, then git.
+    pub vcs: Option<Vcs>,
     /// Author name recorded in generated metadata.
     pub author: Option<String>,
 }
@@ -231,11 +231,11 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
     };
     Ok(Parsed::Run(Command::New(NewArgs {
         name,
-        preset: f.preset.unwrap_or_else(|| "hory".to_string()),
+        preset: f.preset,
         dir: f.dir,
         force: f.force,
         dry_run: f.dry_run,
-        vcs: f.vcs.unwrap_or(Vcs::Git),
+        vcs: f.vcs,
         author: f.author,
     })))
 }
@@ -295,7 +295,7 @@ mod tests {
             panic!("expected new")
         };
         assert_eq!(args.name, "demo");
-        assert_eq!(args.preset, "hory");
+        assert!(args.preset.is_none());
         assert!(!args.force);
         assert!(!args.dry_run);
     }
@@ -318,7 +318,7 @@ mod tests {
         ])) else {
             panic!("expected new")
         };
-        assert_eq!(args.preset, "rust");
+        assert_eq!(args.preset.as_deref(), Some("rust"));
         assert_eq!(args.dir.unwrap().to_str().unwrap(), "/tmp/x");
         assert!(args.force && args.dry_run);
         assert_eq!(args.author.as_deref(), Some("hory"));
@@ -344,7 +344,7 @@ mod tests {
         else {
             panic!("expected new")
         };
-        assert_eq!(args.preset, "rust");
+        assert_eq!(args.preset.as_deref(), Some("rust"));
         assert_eq!(args.author.as_deref(), Some("hory"));
     }
 
