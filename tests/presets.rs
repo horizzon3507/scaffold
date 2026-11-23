@@ -66,3 +66,11 @@ fn rust_generates_a_minimal_cli() {
     let manifest = std::fs::read_to_string(dir.join("Cargo.toml")).unwrap();
     assert!(manifest.contains("demo-app"));
 }
+
+#[test]
+fn web_generates_a_static_site() {
+    let dir = generate("web", "web");
+    assert_files(&dir, &["index.html", "style.css", "app.js", "package.json", "README.md", ".gitignore"]);
+    let html = std::fs::read_to_string(dir.join("index.html")).unwrap();
+    assert!(html.contains("Demo App"));
+}
