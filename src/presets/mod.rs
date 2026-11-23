@@ -12,6 +12,7 @@ pub mod make;
 pub mod node;
 pub mod python;
 pub mod rust;
+pub mod terraform;
 pub mod web;
 pub mod yuzuha;
 pub mod zig;

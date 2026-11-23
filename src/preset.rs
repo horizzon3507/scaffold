@@ -34,6 +34,7 @@ pub fn all() -> Vec<Preset> {
         presets::docker::PRESET,
         presets::astro::PRESET,
         presets::make::PRESET,
+        presets::terraform::PRESET,
     ]
 }
 
