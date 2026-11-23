@@ -1,5 +1,6 @@
 //! Preset model and registry.
 
+use crate::color;
 use crate::error::AppResult as Result;
 
 use crate::presets;
@@ -48,11 +49,16 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
 /// Print the presets for `scaffold list`.
 pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
     for p in all() {
-        let default = if p.name == "hory" { " (default)" } else { "" };
-        if args.verbose {
-            println!("{:<8} {}{}", p.name, p.description, default);
+        let name = color::cyan(p.name);
+        let default = if p.name == "hory" {
+            color::dim(" (default)")
         } else {
-            println!("{}{}", p.name, default);
+            String::new()
+        };
+        if args.verbose {
+            println!("{name:<17} {}{}", p.description, default);
+        } else {
+            println!("{name}{default}");
         }
     }
     Ok(())
@@ -61,12 +67,13 @@ pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
 /// Show what a preset generates.
 pub fn run_describe(args: &crate::cli::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
-    println!("{} - {}", p.name, p.description);
+    println!("{} - {}", color::bold(p.name), color::dim(p.description));
     let mut templates = (p.templates)();
     templates.sort_by(|a, b| a.path.cmp(b.path));
     for t in &templates {
         t.validate()?;
-        println!("  {:<45} {:>6} bytes", t.path, t.contents.len());
+        let size = color::dim(&format!("{:>6} bytes", t.contents.len()));
+        println!("  {:<53} {size}", t.path);
     }
     Ok(())
 }

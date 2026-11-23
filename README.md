@@ -81,3 +81,8 @@ scaffold completions bash >> ~/.bashrc
 scaffold completions zsh  > "${fpath[1]}/_scaffold"   # zsh
 scaffold completions fish > ~/.config/fish/completions/scaffold.fish
 ```
+
+## Colors
+
+Output is colored when stdout is a terminal. Pass `--no-color` or set
+the standard `NO_COLOR` environment variable to disable it.

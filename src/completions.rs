@@ -38,7 +38,7 @@ _scaffold() {{
     local cur
     cur="${{COMP_WORDS[COMP_CWORD]}}"
     if [ "$COMP_CWORD" -eq 1 ]; then
-        COMPREPLY=( $(compgen -W "{presets} completions --verbose --dry-run --quiet" -- "$cur") )
+        COMPREPLY=( $(compgen -W "{presets} completions --verbose --dry-run --quiet --no-color" -- "$cur") )
     fi
 }}
 complete -F _scaffold scaffold
@@ -49,7 +49,7 @@ complete -F _scaffold scaffold
 # zsh completion for scaffold
 _scaffold() {{
     local -a items
-    items=({presets} completions --verbose --dry-run --quiet)
+    items=({presets} completions --verbose --dry-run --quiet --no-color)
     _describe 'scaffold' items
 }}
 _scaffold "$@"

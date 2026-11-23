@@ -124,6 +124,7 @@ COMMANDS:
 OPTIONS:
     -h, --help       Print help
     -V, --version    Print version
+        --no-color   Disable colored output (also honors NO_COLOR)
 ";
 
 const NEW_HELP: &str = "\
@@ -156,7 +157,18 @@ pub enum Parsed {
 }
 
 /// Parse arguments (without argv[0]) into an outcome.
+/// True when `--no-color` appears anywhere in the arguments.
+pub fn no_color_requested(argv: &[String]) -> bool {
+    argv.iter().any(|a| a == "--no-color")
+}
+
 pub fn parse(argv: &[String]) -> Result<Parsed, String> {
+    let argv: Vec<String> = argv
+        .iter()
+        .filter(|a| a.as_str() != "--no-color")
+        .cloned()
+        .collect();
+    let argv = argv.as_slice();
     let Some(first) = argv.first() else {
         return Ok(Parsed::Help(HELP));
     };
