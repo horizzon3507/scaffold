@@ -22,5 +22,6 @@ fn templates() -> Vec<Template> {
         Template::new(".gitignore", include_str!("../../templates/hory/.gitignore")),
         Template::new(".editorconfig", include_str!("../../templates/hory/.editorconfig")),
         Template::new("rustfmt.toml", include_str!("../../templates/hory/rustfmt.toml")),
+        Template::new("CONTRIBUTING.md", include_str!("../../templates/hory/CONTRIBUTING.md")),
     ]
 }
