@@ -74,3 +74,15 @@ impl Plan {
         }
     }
 }
+
+/// Run `scaffold new`.
+pub fn run_new(args: &NewArgs) -> Result<()> {
+    let plan = Plan::build(args)?;
+    if args.dry_run {
+        plan.print();
+        return Ok(());
+    }
+    plan.execute(args.force)?;
+    println!("created {} in {}", args.name, plan.root.display());
+    Ok(())
+}
