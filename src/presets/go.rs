@@ -12,5 +12,6 @@ pub const PRESET: Preset = Preset {
 
 fn templates() -> Vec<Template> {
     vec![
+        Template::new("go.mod", include_str!("../../templates/go/go.mod")),
     ]
 }
