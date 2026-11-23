@@ -97,3 +97,33 @@ pub fn detect_author() -> String {
         .filter(|s| !s.is_empty())
         .unwrap_or_else(|| "you".to_string())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn ctx() -> Context {
+        Context::new("my-app", Some("hory"))
+    }
+
+    #[test]
+    fn renders_all_variables() {
+        let out = ctx().render("{{name}} {{Name}} {{author}} {{year}} {{date}}");
+        assert!(out.starts_with("my-app My App hory "));
+        assert!(!out.contains("{{"));
+    }
+
+    #[test]
+    fn renders_paths_and_revalidates() {
+        assert_eq!(
+            ctx().render_path("src/{{name}}/mod.rs").unwrap(),
+            "src/my-app/mod.rs"
+        );
+    }
+
+    #[test]
+    fn civil_dates_match_known_days() {
+        assert_eq!(civil_from_days(0), (1970, 1, 1));
+        assert_eq!(civil_from_days(19_782), (2024, 2, 29));
+    }
+}
