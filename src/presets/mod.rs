@@ -14,6 +14,7 @@ pub mod python;
 pub mod rust;
 pub mod svelte;
 pub mod terraform;
+pub mod vue;
 pub mod web;
 pub mod yuzuha;
 pub mod zig;
