@@ -92,6 +92,19 @@ pub fn run_list(args: &crate::cli::ListArgs) -> Result<()> {
     Ok(())
 }
 
+/// Print one template, rendered with a demo project name.
+fn show_template(p: &Preset, path: &str) -> Result<()> {
+    let templates = (p.templates)();
+    let template = templates
+        .iter()
+        .find(|t| t.path == path)
+        .ok_or_else(|| format!("'{path}' is not in preset '{}'", p.name))?;
+    template.validate()?;
+    let ctx = crate::render::Context::new("demo", None);
+    crate::out!("{}", ctx.render(template.contents));
+    Ok(())
+}
+
 /// One preset's file plan as JSON.
 fn describe_json(p: &Preset, templates: &[Template]) -> String {
     let files: Vec<String> = templates
@@ -115,6 +128,9 @@ fn describe_json(p: &Preset, templates: &[Template]) -> String {
 /// Show what a preset generates.
 pub fn run_describe(args: &crate::cli::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
+    if let Some(path) = &args.show {
+        return show_template(&p, path);
+    }
     if args.tree {
         let templates = (p.templates)();
         for t in &templates {

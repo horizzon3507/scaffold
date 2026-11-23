@@ -92,7 +92,8 @@ the command worked.
 ## Machine-readable output
 
 `scaffold list --json` and `scaffold describe <preset> --json` print JSON
-for scripts and editors.
+for scripts and editors. `scaffold describe <preset> --show <path>` prints
+one rendered template.
 
 ## Shell completions
 
