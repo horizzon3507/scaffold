@@ -17,6 +17,8 @@ pub struct Cli {
 pub enum Command {
     /// Create a new project from a preset.
     New(NewArgs),
+    /// List the available presets.
+    List(ListArgs),
 }
 
 /// Arguments for `scaffold new`.
@@ -58,3 +60,7 @@ pub enum Vcs {
     /// Do not initialize version control.
     None,
 }
+
+/// Arguments for `scaffold list`.
+#[derive(clap::Args)]
+pub struct ListArgs {}
