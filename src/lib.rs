@@ -11,3 +11,4 @@ pub mod presets;
 pub mod quiet;
 pub mod render;
 pub mod template;
+pub mod tree;

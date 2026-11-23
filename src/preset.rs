@@ -115,6 +115,16 @@ fn describe_json(p: &Preset, templates: &[Template]) -> String {
 /// Show what a preset generates.
 pub fn run_describe(args: &crate::cli::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
+    if args.tree {
+        let templates = (p.templates)();
+        for t in &templates {
+            t.validate()?;
+        }
+        let paths: Vec<String> = templates.iter().map(|t| t.path.to_string()).collect();
+        crate::out!("{}", color::bold(p.name));
+        crate::out!("{}", crate::tree::render(&paths).trim_end());
+        return Ok(());
+    }
     if args.json {
         let mut templates = (p.templates)();
         templates.sort_by(|a, b| a.path.cmp(b.path));
