@@ -36,6 +36,10 @@ scaffold new api -p go --dir ~/code/api --vcs none
 | `node` | Node + TypeScript CLI |
 | `go` | Go CLI with Makefile |
 | `docs` | Docs-only project |
+| `latex` | LaTeX paper: main.tex, Makefile |
+| `zig` | Zig CLI: build.zig, main |
+| `deno` | Deno TypeScript CLI |
+| `flask` | Flask web app |
 
 List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset>`.
 
