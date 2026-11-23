@@ -63,4 +63,8 @@ pub enum Vcs {
 
 /// Arguments for `scaffold list`.
 #[derive(clap::Args)]
-pub struct ListArgs {}
+pub struct ListArgs {
+    /// Show each preset's description too.
+    #[arg(short, long)]
+    pub verbose: bool,
+}
