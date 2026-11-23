@@ -32,4 +32,8 @@ pub struct NewArgs {
     /// Directory to generate into. Defaults to ./<name>.
     #[arg(long)]
     pub dir: Option<PathBuf>,
+
+    /// Overwrite files that already exist.
+    #[arg(long)]
+    pub force: bool,
 }
