@@ -15,7 +15,18 @@ Here the installable surface is **CLI** (`scaffold`). Other apps swap in their o
 
 With one surface there is no `m` in the tag and no per-surface sections — just the version notes.
 
-Each release heading is the version and date (`## v0.1.0-stable · 22/11/2026`); under it, a short summary ends with a plain sentence like: "This version was made for CLI with a stable release channel on 22/11/2026 (v0.1.0-stable)."
+Each release heading is the version and date (`## v0.2.0-stable · 23/11/2026
+
+Zero dependencies and a friendlier CLI. This version was made for CLI with a stable release channel on 23/11/2026 (v0.2.0-stable).
+
+- The runtime is now dependency-free: the argument parser, JSON writer, color output and shell completions are all hand-written, and the release binary dropped from 813 KB to 424 KB.
+- `scaffold completions <bash|zsh|fish>` prints a completion script for your shell.
+- Output is colored on terminals and honors `--no-color` and `NO_COLOR`; `--quiet` prints only errors.
+- `scaffold list --json` and `scaffold describe <preset> --json` print machine-readable output.
+- An optional config file (`~/.config/scaffold/config`) sets default preset, author and vcs; flags always win.
+- Four new presets: `latex`, `zig`, `deno` and `flask`, for twelve in total.
+
+## v0.1.0-stable · 22/11/2026`); under it, a short summary ends with a plain sentence like: "This version was made for CLI with a stable release channel on 22/11/2026 (v0.1.0-stable)."
 
 ### What the channel suffix means
 
@@ -28,6 +39,17 @@ Each release heading is the version and date (`## v0.1.0-stable · 22/11/2026`);
 We only call something **stable** when we mean it.
 
 </details>
+
+## v0.2.0-stable · 23/11/2026
+
+Zero dependencies and a friendlier CLI. This version was made for CLI with a stable release channel on 23/11/2026 (v0.2.0-stable).
+
+- The runtime is now dependency-free: the argument parser, JSON writer, color output and shell completions are all hand-written, and the release binary dropped from 813 KB to 424 KB.
+- `scaffold completions <bash|zsh|fish>` prints a completion script for your shell.
+- Output is colored on terminals and honors `--no-color` and `NO_COLOR`; `--quiet` prints only errors.
+- `scaffold list --json` and `scaffold describe <preset> --json` print machine-readable output.
+- An optional config file (`~/.config/scaffold/config`) sets default preset, author and vcs; flags always win.
+- Four new presets: `latex`, `zig`, `deno` and `flask`, for twelve in total.
 
 ## v0.1.0-stable · 22/11/2026
 
