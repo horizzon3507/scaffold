@@ -106,3 +106,9 @@ fn go_generates_a_cli() {
     let gomod = std::fs::read_to_string(dir.join("go.mod")).unwrap();
     assert!(gomod.contains("demo-app"));
 }
+
+#[test]
+fn docs_generates_guides() {
+    let dir = generate("docs", "docs");
+    assert_files(&dir, &["README.md", "docs/index.md", "docs/usage.md", "CHANGELOG.md"]);
+}
