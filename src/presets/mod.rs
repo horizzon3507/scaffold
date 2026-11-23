@@ -1,5 +1,6 @@
 //! Preset bundles.
 
+pub mod astro;
 pub mod deno;
 pub mod docker;
 pub mod docs;
