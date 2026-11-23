@@ -17,7 +17,10 @@ fn templates() -> Vec<Template> {
             "src/main.c",
             include_str!("../../templates/make/src/main.c"),
         ),
-        Template::new(".gitignore", include_str!("../../templates/make/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/make/.gitignore"),
+        ),
         Template::new("README.md", include_str!("../../templates/make/README.md")),
     ]
 }

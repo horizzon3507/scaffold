@@ -12,7 +12,10 @@ pub const PRESET: Preset = Preset {
 
 fn templates() -> Vec<Template> {
     vec![
-        Template::new("Dockerfile", include_str!("../../templates/docker/Dockerfile")),
+        Template::new(
+            "Dockerfile",
+            include_str!("../../templates/docker/Dockerfile"),
+        ),
         Template::new(
             ".dockerignore",
             include_str!("../../templates/docker/.dockerignore"),
@@ -21,6 +24,9 @@ fn templates() -> Vec<Template> {
             "compose.yaml",
             include_str!("../../templates/docker/compose.yaml"),
         ),
-        Template::new("README.md", include_str!("../../templates/docker/README.md")),
+        Template::new(
+            "README.md",
+            include_str!("../../templates/docker/README.md"),
+        ),
     ]
 }

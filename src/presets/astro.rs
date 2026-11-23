@@ -24,7 +24,10 @@ fn templates() -> Vec<Template> {
             "src/pages/index.astro",
             include_str!("../../templates/astro/src/pages/index.astro"),
         ),
-        Template::new(".gitignore", include_str!("../../templates/astro/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/astro/.gitignore"),
+        ),
         Template::new("README.md", include_str!("../../templates/astro/README.md")),
     ]
 }
