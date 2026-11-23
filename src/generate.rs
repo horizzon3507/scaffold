@@ -25,10 +25,10 @@ struct Plan {
 
 impl Plan {
     /// Resolve templates, variables and the target directory.
-    fn build(args: &NewArgs) -> Result<Self> {
+    fn build(args: &NewArgs, preset_name: &str, author: Option<&str>) -> Result<Self> {
         crate::name::validate(&args.name)?;
-        let p = preset::find_or_error(&args.preset)?;
-        let ctx = render::Context::new(&args.name, args.author.as_deref());
+        let p = preset::find_or_error(preset_name)?;
+        let ctx = render::Context::new(&args.name, author);
         let root = args
             .dir
             .clone()
@@ -87,22 +87,42 @@ impl Plan {
 
 /// Run `scaffold new`.
 pub fn run_new(args: &NewArgs) -> Result<()> {
-    let plan = Plan::build(args)?;
+    let cfg = crate::config::load();
+    let preset_name = args
+        .preset
+        .clone()
+        .or(cfg.default_preset)
+        .unwrap_or_else(|| "hory".to_string());
+    let author = args.author.clone().or(cfg.author);
+    let vcs = match args.vcs.or_else(|| cfg.vcs.as_deref().and_then(parse_vcs)) {
+        Some(v) => v,
+        None => Vcs::Git,
+    };
+    let plan = Plan::build(args, &preset_name, author.as_deref())?;
     if args.dry_run {
         plan.print();
         return Ok(());
     }
     plan.execute(args.force)?;
-    match args.vcs {
+    match vcs {
         Vcs::Git => init_git(&plan.root),
         Vcs::None => {}
     }
-    print_next_steps(args, &plan);
+    print_next_steps(args, &plan, &preset_name);
     Ok(())
 }
 
+/// Read the config's vcs string; an unknown value is ignored.
+fn parse_vcs(value: &str) -> Option<Vcs> {
+    match value {
+        "git" => Some(Vcs::Git),
+        "none" => Some(Vcs::None),
+        _ => None,
+    }
+}
+
 /// What to do with the fresh project.
-fn print_next_steps(args: &NewArgs, plan: &Plan) {
+fn print_next_steps(args: &NewArgs, plan: &Plan, preset_name: &str) {
     println!(
         "{} {} in {}",
         color::green("created"),
@@ -114,7 +134,7 @@ fn print_next_steps(args: &NewArgs, plan: &Plan) {
     println!("{}", color::dim(&format!("  cd {}", plan.root.display())));
     println!(
         "{}",
-        color::dim(&format!("  scaffold describe {}", args.preset))
+        color::dim(&format!("  scaffold describe {preset_name}"))
     );
 }
 
