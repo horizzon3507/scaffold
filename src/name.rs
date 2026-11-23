@@ -21,3 +21,18 @@ pub fn validate(name: &str) -> Result<(), Invalid> {
     }
     Ok(())
 }
+
+/// Turn `my-app` into `My App` for README titles.
+pub fn title_case(name: &str) -> String {
+    name.split(['-', '_'])
+        .filter(|part| !part.is_empty())
+        .map(|part| {
+            let mut chars = part.chars();
+            match chars.next() {
+                Some(first) => first.to_uppercase().collect::<String>() + chars.as_str(),
+                None => String::new(),
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
