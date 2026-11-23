@@ -32,3 +32,4 @@ We only call something **stable** when we mean it.
 ## Unreleased
 
 - `scaffold new <name>` generates a project from a preset, with `--preset`, `--dir`, `--force`, `--dry-run`, `--vcs` and `--author`; git initializes by default.
+- `scaffold list` and `scaffold describe` inspect the available presets.
