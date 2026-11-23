@@ -14,6 +14,8 @@ pub enum Command {
     Completions(CompletionsArgs),
     /// Generate a project into the current directory.
     Init(InitArgs),
+    /// Check the environment.
+    Doctor,
 }
 
 /// Arguments for `scaffold init`: the flags of `new`, minus the name and
@@ -147,6 +149,7 @@ USAGE:
 COMMANDS:
     new       Create a new project from a preset
     init      Generate into the current directory
+    doctor    Check the environment
     list      List the available presets
     describe  Show the files a preset generates
 
@@ -214,6 +217,12 @@ pub fn parse(argv: &[String]) -> Result<Parsed, String> {
         "describe" => parse_describe(&argv[1..]),
         "completions" => parse_completions(&argv[1..]),
         "init" => parse_init(&argv[1..]),
+        "doctor" => {
+            if argv.len() > 1 {
+                return Err(format!("unexpected argument '{}'", argv[1]));
+            }
+            Ok(Parsed::Run(Command::Doctor))
+        }
         "-h" | "--help" => Ok(Parsed::Help(HELP)),
         "-V" | "--version" => Ok(Parsed::Version),
         other => Err(format!("unknown command '{other}' (try --help)")),
