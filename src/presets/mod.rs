@@ -1,5 +1,6 @@
 //! Preset bundles.
 
+pub mod deno;
 pub mod docs;
 pub mod go;
 pub mod latex;
