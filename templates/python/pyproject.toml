@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "{{name}}"
+version = "0.1.0"
+description = "{{Name}}"
+authors = [{name = "{{author}}"}]
+license = {text = "Apache-2.0"}
+requires-python = ">=3.11"
+
+[project.scripts]
+{{name}} = "{{name_snake}}.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/{{name_snake}}"]

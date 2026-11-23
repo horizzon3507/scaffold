@@ -12,5 +12,6 @@ pub const PRESET: Preset = Preset {
 
 fn templates() -> Vec<Template> {
     vec![
+        Template::new("pyproject.toml", include_str!("../../templates/python/pyproject.toml")),
     ]
 }
