@@ -16,5 +16,6 @@ fn templates() -> Vec<Template> {
         Template::new("src/main.rs", include_str!("../../templates/rust/src/main.rs")),
         Template::new(".gitignore", include_str!("../../templates/rust/.gitignore")),
         Template::new("README.md", include_str!("../../templates/rust/README.md")),
+        Template::new("CHANGELOG.md", include_str!("../../templates/rust/CHANGELOG.md")),
     ]
 }
