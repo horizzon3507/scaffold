@@ -33,6 +33,7 @@ pub fn all() -> Vec<Preset> {
         presets::flask::PRESET,
         presets::docker::PRESET,
         presets::astro::PRESET,
+        presets::make::PRESET,
     ]
 }
 
