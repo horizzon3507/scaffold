@@ -28,4 +28,8 @@ pub struct NewArgs {
     /// Preset to use. Defaults to the `hory` bundle.
     #[arg(long, default_value = "hory")]
     pub preset: String,
+
+    /// Directory to generate into. Defaults to ./<name>.
+    #[arg(long)]
+    pub dir: Option<PathBuf>,
 }
