@@ -82,3 +82,11 @@ fn yuzuha_generates_a_bot() {
     let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
     assert!(pkg.contains("yuzuha"));
 }
+
+#[test]
+fn python_generates_a_package() {
+    let dir = generate("python", "python");
+    assert_files(&dir, &["pyproject.toml", "src/demo_app/__init__.py", "src/demo_app/__main__.py", "tests/test_smoke.py", "README.md", ".gitignore", "LICENSE"]);
+    let pyproject = std::fs::read_to_string(dir.join("pyproject.toml")).unwrap();
+    assert!(pyproject.contains("demo_app"));
+}
