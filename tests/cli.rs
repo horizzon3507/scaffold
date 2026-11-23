@@ -38,3 +38,12 @@ fn list_shows_every_preset() {
         assert!(stdout.contains(preset), "list is missing {preset}");
     }
 }
+
+#[test]
+fn describe_prints_the_file_tree() {
+    let out = bin().args(["describe", "hory"]).output().unwrap();
+    assert!(out.status.success());
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    assert!(stdout.contains("Cargo.toml"));
+    assert!(stdout.contains("src/main.rs"));
+}
