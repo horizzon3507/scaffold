@@ -3,3 +3,4 @@
 pub mod hory;
 pub mod rust;
 pub mod web;
+pub mod yuzuha;
