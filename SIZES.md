@@ -18,3 +18,4 @@
 | latex, zig, deno, flask presets added | 424104 |
 | --quiet flag added | 424360 |
 | v0.2.0 release | 424360 |
+| docker, astro, make, terraform presets added | 428024 |

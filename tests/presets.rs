@@ -238,3 +238,54 @@ fn flask_generates_an_app() {
     let app = std::fs::read_to_string(dir.join("app.py")).unwrap();
     assert!(app.contains("demo-app"));
 }
+
+#[test]
+fn docker_generates_an_image_build() {
+    let dir = generate("docker", "docker");
+    assert_files(
+        &dir,
+        &["Dockerfile", ".dockerignore", "compose.yaml", "README.md"],
+    );
+    let dockerfile = std::fs::read_to_string(dir.join("Dockerfile")).unwrap();
+    assert!(dockerfile.contains("/usr/local/bin/demo-app"));
+}
+
+#[test]
+fn astro_generates_a_site() {
+    let dir = generate("astro", "astro");
+    assert_files(
+        &dir,
+        &[
+            "package.json",
+            "astro.config.mjs",
+            "src/pages/index.astro",
+            ".gitignore",
+            "README.md",
+        ],
+    );
+}
+
+#[test]
+fn make_generates_a_c_project() {
+    let dir = generate("make", "make");
+    assert_files(&dir, &["Makefile", "src/main.c", ".gitignore", "README.md"]);
+    let makefile = std::fs::read_to_string(dir.join("Makefile")).unwrap();
+    assert!(makefile.contains("build/demo-app"));
+}
+
+#[test]
+fn terraform_generates_a_module() {
+    let dir = generate("terraform", "terraform");
+    assert_files(
+        &dir,
+        &[
+            "main.tf",
+            "variables.tf",
+            "outputs.tf",
+            ".gitignore",
+            "README.md",
+        ],
+    );
+    let main = std::fs::read_to_string(dir.join("main.tf")).unwrap();
+    assert!(main.contains("null_resource\" \"demo_app"));
+}
