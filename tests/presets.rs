@@ -58,3 +58,11 @@ fn hory_generates_a_rust_cli() {
     let changelog = std::fs::read_to_string(dir.join("CHANGELOG.md")).unwrap();
     assert!(!changelog.contains("{{"));
 }
+
+#[test]
+fn rust_generates_a_minimal_cli() {
+    let dir = generate("rust", "rust");
+    assert_files(&dir, &["Cargo.toml", "src/main.rs", "README.md", "CHANGELOG.md", "LICENSE", ".gitignore"]);
+    let manifest = std::fs::read_to_string(dir.join("Cargo.toml")).unwrap();
+    assert!(manifest.contains("demo-app"));
+}
