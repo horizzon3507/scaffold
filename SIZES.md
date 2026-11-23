@@ -24,3 +24,4 @@
 | scaffold init added | 450328 |
 | scaffold doctor added | 452392 |
 | describe --show added | 453080 |
+| SIGPIPE fix | 453112 |
