@@ -1,0 +1,19 @@
+{
+  "name": "{{name}}",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "yuzuha check",
+    "dev": "yuzuha dev",
+    "start": "yuzuha start",
+    "test": "node --test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "yuzuha": "^0.8.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}
