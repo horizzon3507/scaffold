@@ -53,3 +53,15 @@ cargo test
 ```
 
 Commits follow Conventional Commits and every commit builds. Record changes in [CHANGELOG.md](CHANGELOG.md), Hory-style.
+
+## Examples
+
+```sh
+scaffold new botinho -p yuzuha --author horizzon3507
+scaffold describe hory
+scaffold new api -p go --dir ~/code/api --vcs none
+```
+
+## License
+
+Apache-2.0, see [LICENSE](LICENSE).
