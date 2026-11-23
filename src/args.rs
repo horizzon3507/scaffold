@@ -36,4 +36,8 @@ pub struct NewArgs {
     /// Overwrite files that already exist.
     #[arg(long)]
     pub force: bool,
+
+    /// Print the plan without writing anything.
+    #[arg(long)]
+    pub dry_run: bool,
 }
