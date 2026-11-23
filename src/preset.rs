@@ -30,6 +30,7 @@ pub fn all() -> Vec<Preset> {
         presets::latex::PRESET,
         presets::zig::PRESET,
         presets::deno::PRESET,
+        presets::flask::PRESET,
     ]
 }
 
