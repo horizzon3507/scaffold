@@ -15,7 +15,6 @@ name = "scaffold"
 path = "src/main.rs"
 
 [dependencies]
-anyhow = "1"
 
 [profile.release]
 lto = "fat"
