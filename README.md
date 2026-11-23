@@ -100,3 +100,8 @@ vcs = none
 ```
 
 Flags always win over the config.
+
+## Machine-readable output
+
+`scaffold list --json` and `scaffold describe <preset> --json` print JSON
+for scripts and editors.

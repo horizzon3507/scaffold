@@ -4,6 +4,7 @@ pub mod completions;
 pub mod config;
 pub mod error;
 pub mod generate;
+pub mod json;
 pub mod name;
 pub mod preset;
 pub mod presets;

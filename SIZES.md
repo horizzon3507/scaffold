@@ -14,3 +14,4 @@
 | Shell completions added | 403896 |
 | Colors and --no-color added | 407032 |
 | Config file support added | 412456 |
+| --json output added | 419864 |

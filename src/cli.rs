@@ -36,6 +36,8 @@ pub struct NewArgs {
 pub struct ListArgs {
     /// Show each preset's description too.
     pub verbose: bool,
+    /// Print machine-readable JSON.
+    pub json: bool,
 }
 
 /// Arguments for `scaffold completions`.
@@ -48,6 +50,8 @@ pub struct CompletionsArgs {
 pub struct DescribeArgs {
     /// Preset to describe.
     pub preset: String,
+    /// Print machine-readable JSON.
+    pub json: bool,
 }
 
 /// Version control backend for a new project.
@@ -256,17 +260,23 @@ fn parse_completions(args: &[String]) -> Result<Parsed, String> {
 
 fn parse_list(args: &[String]) -> Result<Parsed, String> {
     let mut verbose = false;
+    let mut json = false;
     for arg in args {
         match arg.as_str() {
             "-v" | "--verbose" => verbose = true,
+            "--json" => json = true,
             "-h" | "--help" => return Ok(Parsed::Help(HELP)),
             other => return Err(format!("unexpected argument '{other}'")),
         }
     }
-    Ok(Parsed::Run(Command::List(ListArgs { verbose })))
+    Ok(Parsed::Run(Command::List(ListArgs { verbose, json })))
 }
 
 fn parse_describe(args: &[String]) -> Result<Parsed, String> {
+    let json = args.iter().any(|a| a == "--json");
+    let args: Vec<&String> = args.iter().filter(|a| a.as_str() != "--json").collect();
+    let args: Vec<String> = args.into_iter().cloned().collect();
+    let args = args.as_slice();
     let Some(preset) = args.first() else {
         return Err("missing preset name (try scaffold describe --help)".to_string());
     };
@@ -278,6 +288,7 @@ fn parse_describe(args: &[String]) -> Result<Parsed, String> {
     }
     Ok(Parsed::Run(Command::Describe(DescribeArgs {
         preset: preset.clone(),
+        json,
     })))
 }
 
