@@ -8,7 +8,10 @@ fn renders_dirs_before_files_with_arms() {
         "README.md".to_string(),
     ];
     let out = tree::render(&paths);
-    assert_eq!(out, "├── src/\n│   ├── lib.rs\n│   └── main.rs\n└── README.md\n");
+    assert_eq!(
+        out,
+        "├── src/\n│   ├── lib.rs\n│   └── main.rs\n└── README.md\n"
+    );
 }
 
 #[test]
