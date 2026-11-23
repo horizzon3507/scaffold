@@ -6,6 +6,7 @@ pub mod error;
 pub mod generate;
 pub mod json;
 pub mod name;
+pub mod pick;
 pub mod preset;
 pub mod presets;
 pub mod quiet;
