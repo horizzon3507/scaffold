@@ -1,0 +1,9 @@
+[package]
+name = "scaffold-cli"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+
+[[bin]]
+name = "scaffold"
+path = "src/main.rs"
