@@ -1,5 +1,7 @@
 //! Variable rendering for template contents and paths.
 
+use std::process::Command;
+
 use crate::name;
 
 /// Values substituted into `{{variable}}` slots.
@@ -22,7 +24,7 @@ impl Context {
         Self {
             name: name.to_string(),
             title: name::title_case(name),
-            author: author.unwrap_or("you").to_string(),
+            author: author.map(str::to_string).unwrap_or_else(detect_author),
             year: year(),
             date: today(),
         }
@@ -81,4 +83,17 @@ impl Context {
         crate::template::validate_path(&rendered)?;
         Ok(rendered)
     }
+}
+
+/// Author name from `git config user.name`, or "you" when unset.
+pub fn detect_author() -> String {
+    Command::new("git")
+        .args(["config", "user.name"])
+        .output()
+        .ok()
+        .filter(|o| o.status.success())
+        .and_then(|o| String::from_utf8(o.stdout).ok())
+        .map(|s| s.trim().to_string())
+        .filter(|s| !s.is_empty())
+        .unwrap_or_else(|| "you".to_string())
 }
