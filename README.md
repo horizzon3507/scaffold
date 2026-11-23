@@ -1,6 +1,6 @@
 # scaffold
 
-Scaffolds new projects from opinionated presets, Hory-style.
+Spin up new projects from opinionated presets, zero dependencies.
 
 ## Install
 
@@ -14,6 +14,14 @@ cargo install --path .
 scaffold new my-app            # hory bundle by default
 scaffold new my-app -p rust    # pick another preset
 scaffold new my-app --dry-run  # see the plan first
+```
+
+## Examples
+
+```sh
+scaffold new botinho -p yuzuha --author horizzon3507
+scaffold describe hory
+scaffold new api -p go --dir ~/code/api --vcs none
 ```
 
 ## Presets
@@ -44,49 +52,6 @@ Templates can use these slots, in contents and in file paths:
 | `{{year}}` | the current year |
 | `{{date}}` | today as DD/MM/YYYY |
 
-## Binary size
-
-The CLI is dependency-light by design: the argument parser is hand-rolled and
-release builds are tuned for size (fat LTO, `opt-level = "z"`, `panic = "abort"`,
-stripped symbols). Measurements live in [SIZES.md](SIZES.md).
-
-## Development
-
-```sh
-cargo fmt
-cargo clippy --all-targets -- -D warnings
-cargo test
-```
-
-Commits follow Conventional Commits and every commit builds. Record changes in [CHANGELOG.md](CHANGELOG.md), Hory-style.
-
-## Examples
-
-```sh
-scaffold new botinho -p yuzuha --author horizzon3507
-scaffold describe hory
-scaffold new api -p go --dir ~/code/api --vcs none
-```
-
-## License
-
-Apache-2.0, see [LICENSE](LICENSE).
-
-## Shell completions
-
-Print a completion script for your shell and source it:
-
-```sh
-scaffold completions bash >> ~/.bashrc
-scaffold completions zsh  > "${fpath[1]}/_scaffold"   # zsh
-scaffold completions fish > ~/.config/fish/completions/scaffold.fish
-```
-
-## Colors
-
-Output is colored when stdout is a terminal. Pass `--no-color` or set
-the standard `NO_COLOR` environment variable to disable it.
-
 ## Configuration
 
 An optional config file at `~/.config/scaffold/config` (or
@@ -101,7 +66,45 @@ vcs = none
 
 Flags always win over the config.
 
+## Colors
+
+Output is colored when stdout is a terminal. Pass `--no-color` or set
+the standard `NO_COLOR` environment variable to disable it.
+
 ## Machine-readable output
 
 `scaffold list --json` and `scaffold describe <preset> --json` print JSON
 for scripts and editors.
+
+## Shell completions
+
+Print a completion script for your shell and source it:
+
+```sh
+scaffold completions bash >> ~/.bashrc
+scaffold completions zsh  > "${fpath[1]}/_scaffold"   # zsh
+scaffold completions fish > ~/.config/fish/completions/scaffold.fish
+```
+
+## Binary size
+
+The CLI is dependency-free by design: the argument parser is hand-rolled
+and release builds are tuned for size (fat LTO, `opt-level = "z"`,
+`panic = "abort"`, stripped symbols). Measurements live in
+[SIZES.md](SIZES.md).
+
+## Development
+
+```sh
+cargo fmt
+cargo clippy --all-targets -- -D warnings
+cargo test
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow: Conventional
+Commits, every commit builds, and changes recorded in
+[CHANGELOG.md](CHANGELOG.md).
+
+## License
+
+Apache-2.0, see [LICENSE](LICENSE).
