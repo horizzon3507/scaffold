@@ -77,6 +77,8 @@ pub struct DescribeArgs {
     pub json: bool,
     /// Print the files as a tree instead of a table.
     pub tree: bool,
+    /// Print one rendered template file.
+    pub show: Option<String>,
 }
 
 /// Version control backend for a new project.
@@ -339,10 +341,22 @@ fn parse_list(args: &[String]) -> Result<Parsed, String> {
 fn parse_describe(args: &[String]) -> Result<Parsed, String> {
     let json = args.iter().any(|a| a == "--json");
     let tree = args.iter().any(|a| a == "--tree");
-    let args: Vec<&String> = args
-        .iter()
-        .filter(|a| a.as_str() != "--json" && a.as_str() != "--tree")
-        .collect();
+    let mut show = None;
+    let mut rest = Vec::new();
+    let mut i = 0;
+    while i < args.len() {
+        if args[i] == "--show" {
+            i += 1;
+            let Some(path) = args.get(i) else {
+                return Err("flag --show needs a value".to_string());
+            };
+            show = Some(path.clone());
+        } else if args[i] != "--json" && args[i] != "--tree" {
+            rest.push(&args[i]);
+        }
+        i += 1;
+    }
+    let args: Vec<&String> = rest;
     let args: Vec<String> = args.into_iter().cloned().collect();
     let args = args.as_slice();
     let Some(preset) = args.first() else {
@@ -358,6 +372,7 @@ fn parse_describe(args: &[String]) -> Result<Parsed, String> {
         preset: preset.clone(),
         json,
         tree,
+        show,
     })))
 }
 
