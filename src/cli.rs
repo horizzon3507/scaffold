@@ -62,6 +62,13 @@ struct Flags {
     verbose: bool,
 }
 
+fn no_value(flag: &str, inline: Option<String>) -> Result<(), String> {
+    match inline {
+        Some(_) => Err(format!("flag {flag} takes no value")),
+        None => Ok(()),
+    }
+}
+
 fn take_value(
     flag: &str,
     inline: Option<String>,
@@ -168,8 +175,14 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
             match key {
                 "preset" => f.preset = Some(take_value("--preset", inline, args, &mut i)?),
                 "dir" => f.dir = Some(PathBuf::from(take_value("--dir", inline, args, &mut i)?)),
-                "force" => f.force = true,
-                "dry-run" => f.dry_run = true,
+                "force" => {
+                    no_value("--force", inline)?;
+                    f.force = true;
+                }
+                "dry-run" => {
+                    no_value("--dry-run", inline)?;
+                    f.dry_run = true;
+                }
                 "vcs" => f.vcs = Some(parse_vcs(&take_value("--vcs", inline, args, &mut i)?)?),
                 "author" => f.author = Some(take_value("--author", inline, args, &mut i)?),
                 "help" => return Ok(Parsed::Help(NEW_HELP)),
@@ -180,7 +193,10 @@ fn parse_new(args: &[String]) -> Result<Parsed, String> {
             match key {
                 "p" => f.preset = Some(take_value("-p", inline, args, &mut i)?),
                 "d" => f.dir = Some(PathBuf::from(take_value("-d", inline, args, &mut i)?)),
-                "f" => f.force = true,
+                "f" => {
+                    no_value("-f", inline)?;
+                    f.force = true;
+                }
                 "h" => return Ok(Parsed::Help(NEW_HELP)),
                 other => return Err(format!("unknown flag -{other}")),
             }
@@ -295,6 +311,12 @@ mod tests {
         assert!(matches!(parse(&v(&["--help"])), Ok(Parsed::Help(_))));
         assert!(matches!(parse(&v(&["-V"])), Ok(Parsed::Version)));
         assert!(matches!(parse(&v(&["new", "--help"])), Ok(Parsed::Help(_))));
+    }
+
+    #[test]
+    fn rejects_values_on_boolean_flags() {
+        assert!(parse(&v(&["new", "demo", "--force=yes"])).is_err());
+        assert!(parse(&v(&["new", "demo", "--dry-run=1"])).is_err());
     }
 
     #[test]
