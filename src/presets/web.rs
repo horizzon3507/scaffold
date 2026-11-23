@@ -1,0 +1,16 @@
+//! The `web` preset: Static web app: html, css, js, package.json
+
+use crate::preset::Preset;
+use crate::template::Template;
+
+/// The `web` preset.
+pub const PRESET: Preset = Preset {
+    name: "web",
+    description: "Static web app: html, css, js, package.json",
+    templates: templates,
+};
+
+fn templates() -> Vec<Template> {
+    vec![
+    ]
+}

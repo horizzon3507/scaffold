@@ -20,7 +20,8 @@ pub struct Preset {
 pub fn all() -> Vec<Preset> {
     vec![
         presets::hory::PRESET,
-        presets::rust::PRESET,    ]
+        presets::rust::PRESET,
+        presets::web::PRESET,    ]
 }
 
 /// Look a preset up by name.
