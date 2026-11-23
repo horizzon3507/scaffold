@@ -14,7 +14,10 @@ fn templates() -> Vec<Template> {
     vec![
         Template::new("main.tex", include_str!("../../templates/latex/main.tex")),
         Template::new("Makefile", include_str!("../../templates/latex/Makefile")),
-        Template::new(".gitignore", include_str!("../../templates/latex/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/latex/.gitignore"),
+        ),
         Template::new("README.md", include_str!("../../templates/latex/README.md")),
     ]
 }

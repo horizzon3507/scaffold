@@ -14,7 +14,10 @@ fn templates() -> Vec<Template> {
     vec![
         Template::new("main.ts", include_str!("../../templates/deno/main.ts")),
         Template::new("deno.json", include_str!("../../templates/deno/deno.json")),
-        Template::new(".gitignore", include_str!("../../templates/deno/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/deno/.gitignore"),
+        ),
         Template::new("README.md", include_str!("../../templates/deno/README.md")),
     ]
 }

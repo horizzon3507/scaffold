@@ -212,7 +212,10 @@ fn latex_generates_a_paper() {
 #[test]
 fn zig_generates_a_cli() {
     let dir = generate("zig", "zig");
-    assert_files(&dir, &["build.zig", "src/main.zig", ".gitignore", "README.md"]);
+    assert_files(
+        &dir,
+        &["build.zig", "src/main.zig", ".gitignore", "README.md"],
+    );
     let build = std::fs::read_to_string(dir.join("build.zig")).unwrap();
     assert!(build.contains(".name = \"demo-app\""));
 }

@@ -17,7 +17,10 @@ fn templates() -> Vec<Template> {
             "requirements.txt",
             include_str!("../../templates/flask/requirements.txt"),
         ),
-        Template::new(".gitignore", include_str!("../../templates/flask/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/flask/.gitignore"),
+        ),
         Template::new("README.md", include_str!("../../templates/flask/README.md")),
     ]
 }
