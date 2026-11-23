@@ -13,3 +13,4 @@
 | anyhow removed: zero dependencies | 401328 |
 | Shell completions added | 403896 |
 | Colors and --no-color added | 407032 |
+| Config file support added | 412456 |
