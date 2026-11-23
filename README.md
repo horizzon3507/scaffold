@@ -30,3 +30,16 @@ scaffold new my-app --dry-run  # see the plan first
 | `docs` | Docs-only project |
 
 List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset>`.
+
+## Template variables
+
+Templates can use these slots, in contents and in file paths:
+
+| Slot | Renders to |
+| --- | --- |
+| `{{name}}` | `my-app` |
+| `{{Name}}` | `My App` |
+| `{{name_snake}}` | `my_app` |
+| `{{author}}` | `--author`, else `git config user.name` |
+| `{{year}}` | the current year |
+| `{{date}}` | today as DD/MM/YYYY |
