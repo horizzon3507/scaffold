@@ -40,6 +40,10 @@ scaffold new api -p go --dir ~/code/api --vcs none
 | `zig` | Zig CLI: build.zig, main |
 | `deno` | Deno TypeScript CLI |
 | `flask` | Flask web app |
+| `docker` | Docker app: multi-stage build, compose |
+| `astro` | Astro site |
+| `make` | C project driven by a Makefile |
+| `terraform` | Terraform module |
 
 List them with `scaffold list --verbose`; see a file tree with `scaffold describe <preset>`.
 
