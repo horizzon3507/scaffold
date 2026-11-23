@@ -18,5 +18,6 @@ fn templates() -> Vec<Template> {
         Template::new("tests/test_smoke.py", include_str!("../../templates/python/tests/test_smoke.py")),
         Template::new("README.md", include_str!("../../templates/python/README.md")),
         Template::new(".gitignore", include_str!("../../templates/python/.gitignore")),
+        Template::new("LICENSE", include_str!("../../templates/python/LICENSE")),
     ]
 }
