@@ -87,3 +87,15 @@ fn initializes_git_unless_skipped() {
     assert!(out.status.success());
     assert!(dir.join(".git").exists());
 }
+
+#[test]
+fn author_lands_in_generated_metadata() {
+    let dir = workdir("author");
+    let mut args = args_for(&dir);
+    args.push("--author".into());
+    args.push("hory".into());
+    let out = bin().args(args).output().unwrap();
+    assert!(out.status.success());
+    let manifest = std::fs::read_to_string(dir.join("Cargo.toml")).unwrap();
+    assert!(manifest.contains("hory"));
+}
