@@ -40,4 +40,17 @@ pub struct NewArgs {
     /// Print the plan without writing anything.
     #[arg(long)]
     pub dry_run: bool,
+
+    /// Version control to initialize for the project.
+    #[arg(long, value_enum, default_value = "git")]
+    pub vcs: Vcs,
+}
+
+/// Version control backend for a new project.
+#[derive(Clone, Copy, clap::ValueEnum)]
+pub enum Vcs {
+    /// Run `git init` in the new project.
+    Git,
+    /// Do not initialize version control.
+    None,
 }
