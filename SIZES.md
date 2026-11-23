@@ -8,3 +8,4 @@
 | panic = "abort" | 757936 |
 | opt-level = "z" | 616096 |
 | lto = "fat" | 616112 |
+| opt-level = "s" measured 645632, reverted to z | 616096 |
