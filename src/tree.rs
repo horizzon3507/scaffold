@@ -11,6 +11,8 @@ struct Node {
 /// Render sorted paths like `src/main.rs` as a tree with ├── and └──.
 pub fn render(paths: &[String]) -> String {
     let mut root = Node::default();
+    let mut paths: Vec<&String> = paths.iter().collect();
+    paths.sort();
     for path in paths {
         let mut node = &mut root;
         let parts: Vec<&str> = path.split('/').collect();
