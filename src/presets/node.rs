@@ -12,11 +12,23 @@ pub const PRESET: Preset = Preset {
 
 fn templates() -> Vec<Template> {
     vec![
-        Template::new("package.json", include_str!("../../templates/node/package.json")),
-        Template::new("tsconfig.json", include_str!("../../templates/node/tsconfig.json")),
-        Template::new("src/index.ts", include_str!("../../templates/node/src/index.ts")),
+        Template::new(
+            "package.json",
+            include_str!("../../templates/node/package.json"),
+        ),
+        Template::new(
+            "tsconfig.json",
+            include_str!("../../templates/node/tsconfig.json"),
+        ),
+        Template::new(
+            "src/index.ts",
+            include_str!("../../templates/node/src/index.ts"),
+        ),
         Template::new("README.md", include_str!("../../templates/node/README.md")),
-        Template::new(".gitignore", include_str!("../../templates/node/.gitignore")),
+        Template::new(
+            ".gitignore",
+            include_str!("../../templates/node/.gitignore"),
+        ),
         Template::new("LICENSE", include_str!("../../templates/node/LICENSE")),
     ]
 }

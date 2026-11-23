@@ -47,7 +47,10 @@ fn refuses_to_overwrite_without_force() {
     std::fs::write(dir.join("Cargo.toml"), "mine").unwrap();
     let out = bin().args(args_for(&dir)).output().unwrap();
     assert!(!out.status.success());
-    assert_eq!(std::fs::read_to_string(dir.join("Cargo.toml")).unwrap(), "mine");
+    assert_eq!(
+        std::fs::read_to_string(dir.join("Cargo.toml")).unwrap(),
+        "mine"
+    );
 }
 
 #[test]
@@ -59,9 +62,11 @@ fn overwrites_with_force() {
     args.push("--force".into());
     let out = bin().args(args).output().unwrap();
     assert!(out.status.success());
-    assert!(std::fs::read_to_string(dir.join("Cargo.toml"))
-        .unwrap()
-        .contains("demo"));
+    assert!(
+        std::fs::read_to_string(dir.join("Cargo.toml"))
+            .unwrap()
+            .contains("demo")
+    );
 }
 
 #[test]

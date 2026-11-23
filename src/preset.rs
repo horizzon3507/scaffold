@@ -1,7 +1,7 @@
 //! Preset model and registry.
 
-use anyhow::bail;
 use anyhow::Result;
+use anyhow::bail;
 
 use crate::presets;
 use crate::template::Template;
@@ -26,7 +26,8 @@ pub fn all() -> Vec<Preset> {
         presets::python::PRESET,
         presets::node::PRESET,
         presets::go::PRESET,
-        presets::docs::PRESET,    ]
+        presets::docs::PRESET,
+    ]
 }
 
 /// Look a preset up by name.

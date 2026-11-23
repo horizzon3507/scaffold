@@ -9,7 +9,16 @@ fn bin() -> Command {
 #[test]
 fn rejects_invalid_project_names() {
     let out = bin()
-        .args(["new", "2bad", "--preset", "rust", "--vcs", "none", "--dir", "/tmp/scaffold-bad"])
+        .args([
+            "new",
+            "2bad",
+            "--preset",
+            "rust",
+            "--vcs",
+            "none",
+            "--dir",
+            "/tmp/scaffold-bad",
+        ])
         .output()
         .unwrap();
     assert!(!out.status.success());
@@ -20,7 +29,16 @@ fn rejects_invalid_project_names() {
 #[test]
 fn rejects_unknown_presets_and_lists_available() {
     let out = bin()
-        .args(["new", "demo", "--preset", "nope", "--vcs", "none", "--dir", "/tmp/scaffold-nope"])
+        .args([
+            "new",
+            "demo",
+            "--preset",
+            "nope",
+            "--vcs",
+            "none",
+            "--dir",
+            "/tmp/scaffold-nope",
+        ])
         .output()
         .unwrap();
     assert!(!out.status.success());
@@ -34,7 +52,9 @@ fn list_shows_every_preset() {
     let out = bin().args(["list"]).output().unwrap();
     assert!(out.status.success());
     let stdout = String::from_utf8_lossy(&out.stdout);
-    for preset in ["hory", "rust", "web", "yuzuha", "python", "node", "go", "docs"] {
+    for preset in [
+        "hory", "rust", "web", "yuzuha", "python", "node", "go", "docs",
+    ] {
         assert!(stdout.contains(preset), "list is missing {preset}");
     }
 }
