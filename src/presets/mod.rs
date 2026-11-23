@@ -2,6 +2,7 @@
 
 pub mod docs;
 pub mod go;
+pub mod latex;
 pub mod hory;
 pub mod node;
 pub mod python;
