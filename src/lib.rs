@@ -1,6 +1,7 @@
 pub mod cli;
 pub mod color;
 pub mod completions;
+pub mod config;
 pub mod error;
 pub mod generate;
 pub mod name;
