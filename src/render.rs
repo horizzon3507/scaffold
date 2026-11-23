@@ -62,3 +62,14 @@ pub fn today() -> String {
 pub fn year() -> String {
     now_ymd().0.to_string()
 }
+
+impl Context {
+    /// Replace every `{{variable}}` slot in `text`.
+    pub fn render(&self, text: &str) -> String {
+        text.replace("{{name}}", &self.name)
+            .replace("{{Name}}", &self.title)
+            .replace("{{author}}", &self.author)
+            .replace("{{year}}", &self.year)
+            .replace("{{date}}", &self.date)
+    }
+}
