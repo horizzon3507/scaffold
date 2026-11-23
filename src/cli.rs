@@ -129,6 +129,7 @@ OPTIONS:
     -h, --help       Print help
     -V, --version    Print version
         --no-color   Disable colored output (also honors NO_COLOR)
+        --quiet      Print only errors
 ";
 
 const NEW_HELP: &str = "\
@@ -166,10 +167,15 @@ pub fn no_color_requested(argv: &[String]) -> bool {
     argv.iter().any(|a| a == "--no-color")
 }
 
+/// True when `--quiet` appears anywhere in the arguments.
+pub fn quiet_requested(argv: &[String]) -> bool {
+    argv.iter().any(|a| a == "--quiet")
+}
+
 pub fn parse(argv: &[String]) -> Result<Parsed, String> {
     let argv: Vec<String> = argv
         .iter()
-        .filter(|a| a.as_str() != "--no-color")
+        .filter(|a| a.as_str() != "--no-color" && a.as_str() != "--quiet")
         .cloned()
         .collect();
     let argv = argv.as_slice();
