@@ -31,3 +31,20 @@ impl Template {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn accepts_relative_paths() {
+        assert!(Template::new("src/main.rs", "").validate().is_ok());
+        assert!(Template::new("docs/usage.md", "").validate().is_ok());
+    }
+
+    #[test]
+    fn rejects_escapes_and_absolute_paths() {
+        assert!(Template::new("/etc/passwd", "").validate().is_err());
+        assert!(Template::new("../evil", "").validate().is_err());
+    }
+}
