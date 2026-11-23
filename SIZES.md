@@ -6,3 +6,4 @@
 | --- | ---: |
 | Baseline: thin LTO, codegen-units 1, strip | 812640 |
 | panic = "abort" | 757936 |
+| opt-level = "z" | 616096 |
