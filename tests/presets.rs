@@ -289,3 +289,56 @@ fn terraform_generates_a_module() {
     let main = std::fs::read_to_string(dir.join("main.tf")).unwrap();
     assert!(main.contains("null_resource\" \"demo_app"));
 }
+
+#[test]
+fn svelte_generates_an_app() {
+    let dir = generate("svelte", "svelte");
+    assert_files(
+        &dir,
+        &[
+            "package.json",
+            "vite.config.js",
+            "index.html",
+            "src/main.js",
+            "src/App.svelte",
+            "README.md",
+        ],
+    );
+    let app = std::fs::read_to_string(dir.join("src/App.svelte")).unwrap();
+    assert!(app.contains("Demo App"));
+}
+
+#[test]
+fn vue_generates_an_app() {
+    let dir = generate("vue", "vue");
+    assert_files(
+        &dir,
+        &[
+            "package.json",
+            "vite.config.js",
+            "index.html",
+            "src/main.js",
+            "src/App.vue",
+            "README.md",
+        ],
+    );
+}
+
+#[test]
+fn express_generates_an_api() {
+    let dir = generate("express", "express");
+    assert_files(&dir, &["app.js", "package.json", ".gitignore", "README.md"]);
+    let app = std::fs::read_to_string(dir.join("app.js")).unwrap();
+    assert!(app.contains("demo-app"));
+}
+
+#[test]
+fn fastapi_generates_a_service() {
+    let dir = generate("fastapi", "fastapi");
+    assert_files(
+        &dir,
+        &["main.py", "requirements.txt", ".gitignore", "README.md"],
+    );
+    let main = std::fs::read_to_string(dir.join("main.py")).unwrap();
+    assert!(main.contains("Demo App"));
+}
