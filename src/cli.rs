@@ -12,6 +12,25 @@ pub enum Command {
     Describe(DescribeArgs),
     /// Print a shell completion script.
     Completions(CompletionsArgs),
+    /// Generate a project into the current directory.
+    Init(InitArgs),
+}
+
+/// Arguments for `scaffold init`: the flags of `new`, minus the name and
+/// target directory (both come from the current directory).
+pub struct InitArgs {
+    /// Preset to use.
+    pub preset: Option<String>,
+    /// Overwrite files that already exist.
+    pub force: bool,
+    /// Print the plan without writing anything.
+    pub dry_run: bool,
+    /// Version control to initialize.
+    pub vcs: Option<Vcs>,
+    /// Author name recorded in generated metadata.
+    pub author: Option<String>,
+    /// Never prompt; non-interactive use.
+    pub no_input: bool,
 }
 
 /// Arguments for `scaffold new`.
@@ -127,6 +146,7 @@ USAGE:
 
 COMMANDS:
     new       Create a new project from a preset
+    init      Generate into the current directory
     list      List the available presets
     describe  Show the files a preset generates
 
@@ -193,6 +213,7 @@ pub fn parse(argv: &[String]) -> Result<Parsed, String> {
         "list" => parse_list(&argv[1..]),
         "describe" => parse_describe(&argv[1..]),
         "completions" => parse_completions(&argv[1..]),
+        "init" => parse_init(&argv[1..]),
         "-h" | "--help" => Ok(Parsed::Help(HELP)),
         "-V" | "--version" => Ok(Parsed::Version),
         other => Err(format!("unknown command '{other}' (try --help)")),
@@ -273,6 +294,23 @@ fn parse_completions(args: &[String]) -> Result<Parsed, String> {
     }
     let shell = shell.ok_or_else(|| "completions needs a shell: bash, zsh, or fish".to_string())?;
     Ok(Parsed::Run(Command::Completions(CompletionsArgs { shell })))
+}
+
+fn parse_init(args: &[String]) -> Result<Parsed, String> {
+    // init shares new's flags; parse as new with a placeholder name.
+    let mut forwarded = vec!["new".to_string(), ".".to_string()];
+    forwarded.extend(args.iter().cloned());
+    let Parsed::Run(Command::New(n)) = parse_new(&forwarded[1..])? else {
+        return Err("could not parse init flags".to_string());
+    };
+    Ok(Parsed::Run(Command::Init(InitArgs {
+        preset: n.preset,
+        force: n.force,
+        dry_run: n.dry_run,
+        vcs: n.vcs,
+        author: n.author,
+        no_input: n.no_input,
+    })))
 }
 
 fn parse_list(args: &[String]) -> Result<Parsed, String> {

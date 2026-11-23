@@ -85,6 +85,27 @@ impl Plan {
     }
 }
 
+/// Run `scaffold init`: generate into the current directory, named after it.
+pub fn run_init(args: &crate::cli::InitArgs) -> Result<()> {
+    let cwd = std::env::current_dir().map_err(|e| format!("reading the current directory: {e}"))?;
+    let name = cwd
+        .file_name()
+        .and_then(|n| n.to_str())
+        .ok_or("the current directory has no usable name")?
+        .to_string();
+    let new_args = NewArgs {
+        name,
+        preset: args.preset.clone(),
+        dir: Some(cwd),
+        force: args.force,
+        dry_run: args.dry_run,
+        vcs: args.vcs,
+        author: args.author.clone(),
+        no_input: args.no_input,
+    };
+    run_new(&new_args)
+}
+
 /// Run `scaffold new`.
 pub fn run_new(args: &NewArgs) -> Result<()> {
     let cfg = crate::config::load();

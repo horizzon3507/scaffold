@@ -49,5 +49,6 @@ fn run(command: cli::Command) -> Result<()> {
         cli::Command::List(args) => preset::run_list(&args),
         cli::Command::Describe(args) => preset::run_describe(&args),
         cli::Command::Completions(args) => run_completions(args),
+        cli::Command::Init(args) => generate::run_init(&args),
     }
 }
