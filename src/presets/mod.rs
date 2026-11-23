@@ -1,5 +1,6 @@
 //! Preset bundles.
 
+pub mod docs;
 pub mod go;
 pub mod hory;
 pub mod node;
