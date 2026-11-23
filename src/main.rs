@@ -17,6 +17,7 @@ fn run_completions(args: cli::CompletionsArgs) -> Result<()> {
 }
 
 fn main() -> ExitCode {
+    scaffold_cli::sigpipe::restore();
     let argv: Vec<String> = std::env::args().skip(1).collect();
     color::init(cli::no_color_requested(&argv));
     quiet::init(cli::quiet_requested(&argv));
