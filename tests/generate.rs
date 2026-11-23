@@ -39,3 +39,27 @@ fn generates_a_project_end_to_end() {
     assert!(dir.join("src/main.rs").exists());
     assert!(!dir.join(".git").exists());
 }
+
+#[test]
+fn refuses_to_overwrite_without_force() {
+    let dir = workdir("clash");
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(dir.join("Cargo.toml"), "mine").unwrap();
+    let out = bin().args(args_for(&dir)).output().unwrap();
+    assert!(!out.status.success());
+    assert_eq!(std::fs::read_to_string(dir.join("Cargo.toml")).unwrap(), "mine");
+}
+
+#[test]
+fn overwrites_with_force() {
+    let dir = workdir("force");
+    std::fs::create_dir_all(&dir).unwrap();
+    std::fs::write(dir.join("Cargo.toml"), "mine").unwrap();
+    let mut args = args_for(&dir);
+    args.push("--force".into());
+    let out = bin().args(args).output().unwrap();
+    assert!(out.status.success());
+    assert!(std::fs::read_to_string(dir.join("Cargo.toml"))
+        .unwrap()
+        .contains("demo"));
+}
