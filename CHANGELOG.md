@@ -15,7 +15,18 @@ Here the installable surface is **CLI** (`scaffold`). Other apps swap in their o
 
 With one surface there is no `m` in the tag and no per-surface sections — just the version notes.
 
-Each release heading is the version and date (`## v0.2.0-stable · 23/11/2026
+Each release heading is the version and date (`## v0.3.0-stable · 23/11/2026
+
+Interactive, scriptable, and twenty presets wide. This version was made for CLI with a stable release channel on 23/11/2026 (v0.3.0-stable).
+
+- `scaffold init` generates into the current directory, named after it.
+- A numbered picker appears when no preset comes from the flag or the config on a terminal; `--no-input` never prompts.
+- `scaffold doctor` checks the environment and fails loudly when something is missing.
+- `scaffold describe` gained `--tree` for an indented file view and `--show <path>` to print one rendered template.
+- Piping into `head` no longer panics: SIGPIPE kills the process quietly, like any other Unix tool.
+- Twelve new presets: `latex`, `zig`, `deno`, `flask`, `docker`, `astro`, `make`, `terraform`, `svelte`, `vue`, `express` and `fastapi` — twenty in total.
+
+## v0.2.0-stable · 23/11/2026
 
 Zero dependencies and a friendlier CLI. This version was made for CLI with a stable release channel on 23/11/2026 (v0.2.0-stable).
 
@@ -39,6 +50,17 @@ Zero dependencies and a friendlier CLI. This version was made for CLI with a sta
 We only call something **stable** when we mean it.
 
 </details>
+
+## v0.3.0-stable · 23/11/2026
+
+Interactive, scriptable, and twenty presets wide. This version was made for CLI with a stable release channel on 23/11/2026 (v0.3.0-stable).
+
+- `scaffold init` generates into the current directory, named after it.
+- A numbered picker appears when no preset comes from the flag or the config on a terminal; `--no-input` never prompts.
+- `scaffold doctor` checks the environment and fails loudly when something is missing.
+- `scaffold describe` gained `--tree` for an indented file view and `--show <path>` to print one rendered template.
+- Piping into `head` no longer panics: SIGPIPE kills the process quietly, like any other Unix tool.
+- Twelve new presets: `latex`, `zig`, `deno`, `flask`, `docker`, `astro`, `make`, `terraform`, `svelte`, `vue`, `express` and `fastapi` — twenty in total.
 
 ## v0.2.0-stable · 23/11/2026
 
