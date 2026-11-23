@@ -3,6 +3,12 @@ name = "scaffold-cli"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.85"
+description = "Scaffolds new projects from opinionated presets, Hory-style"
+authors = ["horizzon3507 <148660626+horizzon3507@users.noreply.github.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+keywords = ["cli", "scaffold", "project-generator", "templates", "presets"]
+categories = ["command-line-utilities"]
 
 [[bin]]
 name = "scaffold"
