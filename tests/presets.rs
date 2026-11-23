@@ -90,3 +90,11 @@ fn python_generates_a_package() {
     let pyproject = std::fs::read_to_string(dir.join("pyproject.toml")).unwrap();
     assert!(pyproject.contains("demo_app"));
 }
+
+#[test]
+fn node_generates_a_ts_cli() {
+    let dir = generate("node", "node");
+    assert_files(&dir, &["package.json", "tsconfig.json", "src/index.ts", "README.md", ".gitignore", "LICENSE"]);
+    let pkg = std::fs::read_to_string(dir.join("package.json")).unwrap();
+    assert!(pkg.contains("demo-app"));
+}
