@@ -75,3 +75,15 @@ fn dry_run_writes_nothing() {
     let stdout = String::from_utf8_lossy(&out.stdout);
     assert!(stdout.contains("would create"));
 }
+
+#[test]
+fn initializes_git_unless_skipped() {
+    let dir = workdir("vcs");
+    let out = bin()
+        .args(["new", "demo", "--preset", "rust", "--dir"])
+        .arg(&dir)
+        .output()
+        .unwrap();
+    assert!(out.status.success());
+    assert!(dir.join(".git").exists());
+}
