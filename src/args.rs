@@ -44,6 +44,10 @@ pub struct NewArgs {
     /// Version control to initialize for the project.
     #[arg(long, value_enum, default_value = "git")]
     pub vcs: Vcs,
+
+    /// Author name recorded in generated metadata.
+    #[arg(long)]
+    pub author: Option<String>,
 }
 
 /// Version control backend for a new project.
