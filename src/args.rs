@@ -26,15 +26,15 @@ pub struct NewArgs {
     pub name: String,
 
     /// Preset to use. Defaults to the `hory` bundle.
-    #[arg(long, default_value = "hory")]
+    #[arg(short, long, default_value = "hory")]
     pub preset: String,
 
     /// Directory to generate into. Defaults to ./<name>.
-    #[arg(long)]
+    #[arg(short, long)]
     pub dir: Option<PathBuf>,
 
     /// Overwrite files that already exist.
-    #[arg(long)]
+    #[arg(short, long)]
     pub force: bool,
 
     /// Print the plan without writing anything.
