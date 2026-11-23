@@ -1,7 +1,7 @@
 //! Preset model and registry.
 
-use anyhow::bail;
 use anyhow::Result;
+use anyhow::bail;
 
 use crate::presets;
 use crate::template::Template;
@@ -26,7 +26,8 @@ pub fn all() -> Vec<Preset> {
         presets::python::PRESET,
         presets::node::PRESET,
         presets::go::PRESET,
-        presets::docs::PRESET,    ]
+        presets::docs::PRESET,
+    ]
 }
 
 /// Look a preset up by name.
@@ -48,10 +49,11 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
 /// Print the presets for `scaffold list`.
 pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
     for p in all() {
+        let default = if p.name == "hory" { " (default)" } else { "" };
         if args.verbose {
-            println!("{:<8} {}", p.name, p.description);
+            println!("{:<8} {}{}", p.name, p.description, default);
         } else {
-            println!("{}", p.name);
+            println!("{}{}", p.name, default);
         }
     }
     Ok(())
@@ -61,9 +63,11 @@ pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
 pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
     let p = find_or_error(&args.preset)?;
     println!("{} - {}", p.name, p.description);
-    for t in (p.templates)() {
+    let mut templates = (p.templates)();
+    templates.sort_by(|a, b| a.path.cmp(b.path));
+    for t in &templates {
         t.validate()?;
-        println!("  {}", t.path);
+        println!("  {:<45} {:>6} bytes", t.path, t.contents.len());
     }
     Ok(())
 }

@@ -7,14 +7,23 @@ use crate::template::Template;
 pub const PRESET: Preset = Preset {
     name: "docs",
     description: "Docs-only project: readme, guides, changelog",
-    templates: templates,
+    templates,
 };
 
 fn templates() -> Vec<Template> {
     vec![
         Template::new("README.md", include_str!("../../templates/docs/README.md")),
-        Template::new("docs/index.md", include_str!("../../templates/docs/docs/index.md")),
-        Template::new("docs/usage.md", include_str!("../../templates/docs/docs/usage.md")),
-        Template::new("CHANGELOG.md", include_str!("../../templates/docs/CHANGELOG.md")),
+        Template::new(
+            "docs/index.md",
+            include_str!("../../templates/docs/docs/index.md"),
+        ),
+        Template::new(
+            "docs/usage.md",
+            include_str!("../../templates/docs/docs/usage.md"),
+        ),
+        Template::new(
+            "CHANGELOG.md",
+            include_str!("../../templates/docs/CHANGELOG.md"),
+        ),
     ]
 }

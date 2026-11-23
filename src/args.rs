@@ -97,8 +97,19 @@ mod tests {
     #[test]
     fn parses_flags_and_aliases() {
         let cli = Cli::try_parse_from([
-            "scaffold", "new", "demo", "-p", "rust", "-d", "/tmp/x", "-f", "--dry-run",
-            "--vcs", "none", "--author", "hory",
+            "scaffold",
+            "new",
+            "demo",
+            "-p",
+            "rust",
+            "-d",
+            "/tmp/x",
+            "-f",
+            "--dry-run",
+            "--vcs",
+            "none",
+            "--author",
+            "hory",
         ])
         .unwrap();
         let Command::New(args) = cli.command else {

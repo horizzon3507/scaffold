@@ -12,12 +12,12 @@ pub struct Template {
 
 /// Reject paths that could escape the project root.
 pub fn validate_path(path: &str) -> Result<(), Invalid> {
-        if path.starts_with('/') || path.starts_with('\\') {
-            return Err(Invalid::new("template path", "it must be relative"));
-        }
-        if path.split('/').any(|part| part == "..") {
-            return Err(Invalid::new("template path", "it must not contain '..'"));
-        }
+    if path.starts_with('/') || path.starts_with('\\') {
+        return Err(Invalid::new("template path", "it must be relative"));
+    }
+    if path.split('/').any(|part| part == "..") {
+        return Err(Invalid::new("template path", "it must not contain '..'"));
+    }
     if path.contains(':') {
         return Err(Invalid::new("template path", "it must not contain ':'"));
     }

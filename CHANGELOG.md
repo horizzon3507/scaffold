@@ -29,4 +29,11 @@ We only call something **stable** when we mean it.
 
 </details>
 
-## Unreleased
+## v0.1.0-stable · 22/11/2026
+
+First release. This version was made for CLI with a stable release channel on 22/11/2026 (v0.1.0-stable).
+
+- `scaffold new <name>` generates a project from a preset, with `--preset`, `--dir`, `--force`, `--dry-run`, `--vcs` and `--author`; git initializes by default.
+- `scaffold list` and `scaffold describe` inspect the available presets.
+- Eight presets: `hory` (the default Hory-style Rust CLI), `rust`, `web`, `yuzuha`, `python`, `node`, `go` and `docs`.
+- Templates render `{{name}}`, `{{Name}}`, `{{name_snake}}`, `{{author}}`, `{{year}}` and `{{date}}` in contents and in paths.

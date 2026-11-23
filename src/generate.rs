@@ -28,7 +28,10 @@ impl Plan {
         crate::name::validate(&args.name)?;
         let p = preset::find_or_error(&args.preset)?;
         let ctx = render::Context::new(&args.name, args.author.as_deref());
-        let root = args.dir.clone().unwrap_or_else(|| PathBuf::from(&args.name));
+        let root = args
+            .dir
+            .clone()
+            .unwrap_or_else(|| PathBuf::from(&args.name));
         let mut files = Vec::new();
         for t in (p.templates)() {
             t.validate()?;
@@ -49,7 +52,11 @@ impl Plan {
                 .map(|f| f.dest.display().to_string())
                 .collect::<Vec<_>>()
                 .join(", ");
-            bail!("{} path(s) already exist, use --force to overwrite: {}", clashes.len(), names);
+            bail!(
+                "{} path(s) already exist, use --force to overwrite: {}",
+                clashes.len(),
+                names
+            );
         }
         for f in &self.files {
             if let Some(parent) = f.dest.parent() {
