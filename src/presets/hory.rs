@@ -13,5 +13,6 @@ pub const PRESET: Preset = Preset {
 fn templates() -> Vec<Template> {
     vec![
         Template::new("Cargo.toml", include_str!("../../templates/hory/Cargo.toml")),
+        Template::new("src/main.rs", include_str!("../../templates/hory/src/main.rs")),
     ]
 }
