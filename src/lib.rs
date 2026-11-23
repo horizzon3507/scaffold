@@ -2,6 +2,7 @@ pub mod cli;
 pub mod color;
 pub mod completions;
 pub mod config;
+pub mod doctor;
 pub mod error;
 pub mod generate;
 pub mod json;
