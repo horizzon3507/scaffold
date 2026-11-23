@@ -13,5 +13,6 @@ pub const PRESET: Preset = Preset {
 fn templates() -> Vec<Template> {
     vec![
         Template::new("index.html", include_str!("../../templates/web/index.html")),
+        Template::new("style.css", include_str!("../../templates/web/style.css")),
     ]
 }
