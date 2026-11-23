@@ -17,3 +17,4 @@
 | --json output added | 419864 |
 | latex, zig, deno, flask presets added | 424104 |
 | --quiet flag added | 424360 |
+| v0.2.0 release | 424360 |
