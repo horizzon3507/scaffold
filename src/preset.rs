@@ -40,7 +40,7 @@ pub fn find_or_error(name: &str) -> Result<Preset> {
         Some(p) => Ok(p),
         None => {
             let known = all().iter().map(|p| p.name).collect::<Vec<_>>().join(", ");
-            return Err(format!("unknown preset '{name}' (available: {known})").into());
+            Err(format!("unknown preset '{name}' (available: {known})").into())
         }
     }
 }
