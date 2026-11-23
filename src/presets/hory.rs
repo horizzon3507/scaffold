@@ -15,5 +15,6 @@ fn templates() -> Vec<Template> {
         Template::new("Cargo.toml", include_str!("../../templates/hory/Cargo.toml")),
         Template::new("src/main.rs", include_str!("../../templates/hory/src/main.rs")),
         Template::new("src/args.rs", include_str!("../../templates/hory/src/args.rs")),
+        Template::new(".github/workflows/ci.yml", include_str!("../../templates/hory/.github/workflows/ci.yml")),
     ]
 }
