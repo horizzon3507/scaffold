@@ -14,5 +14,6 @@ fn templates() -> Vec<Template> {
     vec![
         Template::new("index.html", include_str!("../../templates/web/index.html")),
         Template::new("style.css", include_str!("../../templates/web/style.css")),
+        Template::new("app.js", include_str!("../../templates/web/app.js")),
     ]
 }
