@@ -19,6 +19,8 @@ pub enum Command {
     New(NewArgs),
     /// List the available presets.
     List(ListArgs),
+    /// Show the files a preset generates.
+    Describe(DescribeArgs),
 }
 
 /// Arguments for `scaffold new`.
@@ -67,4 +69,11 @@ pub struct ListArgs {
     /// Show each preset's description too.
     #[arg(short, long)]
     pub verbose: bool,
+}
+
+/// Arguments for `scaffold describe`.
+#[derive(clap::Args)]
+pub struct DescribeArgs {
+    /// Preset to describe.
+    pub preset: String,
 }

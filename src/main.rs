@@ -11,5 +11,6 @@ fn main() -> Result<()> {
             Ok(())
         }
         Command::List(args) => preset::run_list(&args),
+        Command::Describe(args) => preset::run_describe(&args),
     }
 }

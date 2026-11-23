@@ -48,3 +48,15 @@ pub fn run_list(args: &crate::args::ListArgs) -> Result<()> {
     }
     Ok(())
 }
+
+
+/// Show what a preset generates.
+pub fn run_describe(args: &crate::args::DescribeArgs) -> Result<()> {
+    let p = find_or_error(&args.preset)?;
+    println!("{} - {}", p.name, p.description);
+    for t in (p.templates)() {
+        t.validate()?;
+        println!("  {}", t.path);
+    }
+    Ok(())
+}
