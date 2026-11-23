@@ -75,6 +75,11 @@ Flags always win over the config.
 Output is colored when stdout is a terminal. Pass `--no-color` or set
 the standard `NO_COLOR` environment variable to disable it.
 
+## Quiet mode
+
+`--quiet` prints only errors. Useful in scripts that only care whether
+the command worked.
+
 ## Machine-readable output
 
 `scaffold list --json` and `scaffold describe <preset> --json` print JSON

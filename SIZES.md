@@ -16,3 +16,4 @@
 | Config file support added | 412456 |
 | --json output added | 419864 |
 | latex, zig, deno, flask presets added | 424104 |
+| --quiet flag added | 424360 |

@@ -6,6 +6,7 @@ use scaffold_cli::cli::{self, Parsed};
 use scaffold_cli::color;
 use scaffold_cli::completions::{self, Shell};
 use scaffold_cli::error::AppResult as Result;
+use scaffold_cli::quiet;
 use scaffold_cli::{generate, preset};
 
 fn run_completions(args: cli::CompletionsArgs) -> Result<()> {
@@ -18,6 +19,7 @@ fn run_completions(args: cli::CompletionsArgs) -> Result<()> {
 fn main() -> ExitCode {
     let argv: Vec<String> = std::env::args().skip(1).collect();
     color::init(cli::no_color_requested(&argv));
+    quiet::init(cli::quiet_requested(&argv));
     match cli::parse(&argv) {
         Ok(Parsed::Help(text)) => {
             print!("{text}");
